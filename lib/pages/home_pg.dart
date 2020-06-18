@@ -1,4 +1,4 @@
-import 'package:StockApp/globals.dart';
+import 'package:StockApp/widgets/category_selector.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,43 +10,41 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: IconButton(
-                  tooltip: 'Next Choice',
-                  icon: const Icon(
-                    Icons.add,
-                    size: 40,
-                  ),
-                  onPressed: () {}),
-            ),
-          ],
-        ),
-        body: Row(
-          children: <Widget>[
-            Container(
-              child: Center(
-                child: Text(
-                  'Currency 1',
-                  style: homeSubTitleStyle,
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading:
+            IconButton(icon: Icon(Icons.menu), iconSize: 30, onPressed: () {}),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+                tooltip: 'Next Choice',
+                icon: const Icon(
+                  Icons.add,
+                  size: 30,
                 ),
-              ),
-              width: MediaQuery.of(context).size.width / 2,
-              height: 40,
+                onPressed: () {}),
+          ),
+        ],
+        elevation: 0.0,
+      ),
+      body: Column(
+        children: <Widget>[
+          CategorySelector(),
+          Expanded(
+            child: Container(
+              height: 500.0,
+              decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0))),
+              //child: ,
             ),
-            Container(
-              child: Center(
-                child: Text(
-                  'Currency 2',
-                  style: homeSubTitleStyle,
-                ),
-              ),
-              width: MediaQuery.of(context).size.width / 2,
-              height: 40,
-            )
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
