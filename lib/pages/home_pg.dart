@@ -1,4 +1,5 @@
 import 'package:StockApp/widgets/category_selector.dart';
+import 'package:StockApp/widgets/currencies.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +41,13 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0))),
-              //child: ,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Currencies(),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
