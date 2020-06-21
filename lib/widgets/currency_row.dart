@@ -1,6 +1,9 @@
 import 'package:StockApp/globals.dart';
+import 'package:StockApp/services/webservice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'currencies_conversion.dart';
 
 //------------------------------------------------------------------------------
 class CurrencyRow extends StatefulWidget {
@@ -41,127 +44,145 @@ class _CurrencyRowState extends State<CurrencyRow> {
       ),
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                widget.currenciesList['currencies'][widget.index],
-                style: currencyWidgetStyle,
-              ),
-              IconButton(
-                icon: Image.asset(
-                  widget.currenciesList['images'][widget.index],
-                ),
-                onPressed: () {
-                  _print();
-                },
-                iconSize: 80,
-              ),
-              Image.asset(
-                'assets/images/bidirection.png',
-                height: 70,
-                width: 70,
-              ),
-              IconButton(
-                icon: Image.asset(
-                  widget.currenciesList['images'][widget.index + 1],
-                ),
-                onPressed: () {},
-                iconSize: 80,
-              ),
-              Text(
-                widget.currenciesList['currencies'][widget.index + 1],
-                style: currencyWidgetStyle,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 78,
-              ),
-              Container(
-                width: 110,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 15),
-                  child: TextField(
-                    controller: currValUserInptController,
-                    obscureText: false,
-                    textAlign: TextAlign.center,
-                    keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration.collapsed(
-                      hintText: '0.0',
-                      hintStyle: currencyHintTextWidStyle,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                    onTap: () => currValUserInptController.clear(),
-                    onSubmitted: (String userInput) {
-                      setState(
-                        () {
-                          _userInput1 = currValUserInptController.text;
-                          currValUserInptController2.text = _userInput1;
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 96,
-              ),
-              Container(
-                width: 110,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 15),
-                  child: TextField(
-                    controller: currValUserInptController2,
-                    obscureText: false,
-                    textAlign: TextAlign.center,
-                    keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration.collapsed(
-                      hintText: '0.0',
-                      hintStyle: currencyHintTextWidStyle,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                    onTap: () => currValUserInptController2.clear(),
-                    onSubmitted: (String userInput) {
-                      setState(
-                        () {
-                          _userInput2 = currValUserInptController2.text;
-
-                          currValUserInptController.text = _userInput2;
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
+          iconsRow(),
+          userInput(),
         ],
       ),
+    );
+  }
+
+//------------------------------------------------------------------------------
+  Row userInput() {
+    return Row(
+      // TextField Row
+      children: <Widget>[
+        SizedBox(
+          // for First TextField
+          width: 82,
+        ),
+        Container(
+          width: 110,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 15),
+            child: TextField(
+              controller: currValUserInptController,
+              obscureText: false,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration.collapsed(
+                hintText: '0.0',
+                hintStyle: currencyHintTextWidStyle,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+              onTap: () => currValUserInptController.clear(),
+              onSubmitted: (String userInput) {
+                setState(
+                  () async {
+                    _userInput1 = double.parse(currValUserInptController.text);
+                    var currDiff;
+                    currDiff =
+                        await WebService().fetchCurrencyConversion('EUR_INR');
+                    var outVal = Currency().conversion(
+                        sourceCurrency: _userInput1,
+                        destCurrencyDiff: currDiff);
+                    currValUserInptController2.text = outVal.toStringAsFixed(4);
+                  },
+                );
+              },
+            ),
+          ),
+        ),
+        SizedBox(
+          // for Second TextField
+          width: 88,
+        ),
+        Container(
+          width: 110,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 15),
+            child: TextField(
+              controller: currValUserInptController2,
+              obscureText: false,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration.collapsed(
+                hintText: '0.0',
+                hintStyle: currencyHintTextWidStyle,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+              onTap: () => currValUserInptController2.clear(),
+              onSubmitted: (String userInput) {
+                setState(
+                  () {
+                    _userInput2 = currValUserInptController2.text;
+
+                    currValUserInptController.text = _userInput2;
+                  },
+                );
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+//------------------------------------------------------------------------------
+  Row iconsRow() {
+    return Row(
+      // Icons Row
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        SizedBox(
+          width: 5,
+        ),
+        Text(
+          widget.currenciesList['currencies'][widget.index],
+          style: currencyWidgetStyle,
+        ),
+        IconButton(
+          icon: Image.asset(
+            widget.currenciesList['images'][widget.index],
+          ),
+          onPressed: () {
+            _print();
+          },
+          iconSize: 80,
+        ),
+        Image.asset(
+          'assets/images/bidirection.png',
+          height: 70,
+          width: 70,
+        ),
+        IconButton(
+          icon: Image.asset(
+            widget.currenciesList['images'][widget.index + 1],
+          ),
+          onPressed: () {},
+          iconSize: 80,
+        ),
+        Text(
+          widget.currenciesList['currencies'][widget.index + 1],
+          style: currencyWidgetStyle,
+        ),
+        SizedBox(
+          width: 5,
+        ),
+      ],
     );
   }
 
