@@ -25,4 +25,9 @@ TextStyle currencyHintTextWidStyle = TextStyle(
   fontSize: 18.0,
   letterSpacing: 1.0,
 );
+
+TextStyle currencyInputTextWidStyle = TextStyle(
+  fontFamily: font,
+  color: whiteColor,
+);
 //------------------------------------------------------------------------------

@@ -23,7 +23,7 @@ class CurrencyRow extends StatefulWidget {
 class _CurrencyRowState extends State<CurrencyRow> {
   var _userInput1;
   var _userInput2;
-
+  var currDiff;
   bool inputEntered = false;
   TextEditingController currValUserInptController = TextEditingController();
   TextEditingController currValUserInptController2 = TextEditingController();
@@ -70,6 +70,8 @@ class _CurrencyRowState extends State<CurrencyRow> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: TextField(
+              style: currencyInputTextWidStyle,
+              cursorColor: Colors.white,
               controller: currValUserInptController,
               obscureText: false,
               textAlign: TextAlign.center,
@@ -86,12 +88,13 @@ class _CurrencyRowState extends State<CurrencyRow> {
                 setState(
                   () async {
                     _userInput1 = double.parse(currValUserInptController.text);
-                    var currDiff;
+
                     currDiff =
-                        await WebService().fetchCurrencyConversion('EUR_INR');
+                        await WebService().fetchCurrencyConversion('INR');
                     var outVal = Currency().conversion(
                         sourceCurrency: _userInput1,
-                        destCurrencyDiff: currDiff);
+                        destCurrencyDiff: currDiff['INR']);
+                    print('$outVal');
                     currValUserInptController2.text = outVal.toStringAsFixed(4);
                   },
                 );
@@ -113,6 +116,7 @@ class _CurrencyRowState extends State<CurrencyRow> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: TextField(
+              style: currencyInputTextWidStyle,
               controller: currValUserInptController2,
               obscureText: false,
               textAlign: TextAlign.center,
@@ -126,13 +130,17 @@ class _CurrencyRowState extends State<CurrencyRow> {
               ),
               onTap: () => currValUserInptController2.clear(),
               onSubmitted: (String userInput) {
-                setState(
-                  () {
-                    _userInput2 = currValUserInptController2.text;
-
-                    currValUserInptController.text = _userInput2;
-                  },
-                );
+                _userInput2 = double.parse(currValUserInptController2.text);
+                print(_userInput2);
+                /*var currDiff;
+                    currDiff =
+                        await WebService().fetchCurrencyConversion('INR');
+                    var outVal = Currency().conversion(
+                        sourceCurrency: _userInput2,
+                        destCurrencyDiff: currDiff['EUR']); */
+                double outVal = _userInput2 / currDiff['INR'];
+                print('$outVal  ');
+                currValUserInptController.text = outVal.toStringAsFixed(4);
               },
             ),
           ),

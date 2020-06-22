@@ -10,3 +10,7 @@ class Currency {
     return sourceCurrency * destCurrencyDiff;
   }
 }
+
+// INR = 85.2585 , USD = 1.1213 base EUR
+// 1 INR = 1.1213/85.2585 = 0.013 USD
+// 1 USD = 85.2585 / 1.1213 = 76.03540

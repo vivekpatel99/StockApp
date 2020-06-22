@@ -11,9 +11,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        //backgroundColor: Theme.of(context).,
         leading:
             IconButton(icon: Icon(Icons.menu), iconSize: 30, onPressed: () {}),
         actions: <Widget>[
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               height: 500.0,
               decoration: BoxDecoration(
-                  color: Colors.grey,
+                  //color: Colors.grey,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0))),
