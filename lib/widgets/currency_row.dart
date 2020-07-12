@@ -7,7 +7,7 @@ import 'currencies_conversion.dart';
 
 //------------------------------------------------------------------------------
 class CurrencyRow extends StatefulWidget {
-  final Map<String, List<String>> currenciesList;
+  final currenciesList;
   final int index;
 
   CurrencyRow({
@@ -21,8 +21,8 @@ class CurrencyRow extends StatefulWidget {
 
 //------------------------------------------------------------------------------
 class _CurrencyRowState extends State<CurrencyRow> {
-  var _userInput1;
-  var _userInput2;
+  double _userInput1;
+  double _userInput2;
   var currDiff;
   bool inputEntered = false;
   TextEditingController currValUserInptController = TextEditingController();
@@ -83,19 +83,21 @@ class _CurrencyRowState extends State<CurrencyRow> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              onTap: () => currValUserInptController.clear(),
+              //onTap: () => currValUserInptController.clear(),
               onSubmitted: (String userInput) {
                 setState(
                   () async {
+                    print(widget.currenciesList.addedCurrencies[widget.index]);
                     _userInput1 = double.parse(currValUserInptController.text);
 
                     currDiff =
                         await WebService().fetchCurrencyConversion('INR');
-                    var outVal = Currency().conversion(
+                    var outVal = CurrencyConversion().conversion(
                         sourceCurrency: _userInput1,
                         destCurrencyDiff: currDiff['INR']);
-                    print('$outVal');
-                    currValUserInptController2.text = outVal.toStringAsFixed(4);
+
+                    currValUserInptController2.text =
+                        outVal.toStringAsFixed(currDecimal);
                   },
                 );
               },
@@ -128,19 +130,18 @@ class _CurrencyRowState extends State<CurrencyRow> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              onTap: () => currValUserInptController2.clear(),
-              onSubmitted: (String userInput) {
+              //onTap: () => currValUserInptController2.clear(),
+              onSubmitted: (String userInput) async {
                 _userInput2 = double.parse(currValUserInptController2.text);
-                print(_userInput2);
-                /*var currDiff;
-                    currDiff =
-                        await WebService().fetchCurrencyConversion('INR');
-                    var outVal = Currency().conversion(
-                        sourceCurrency: _userInput2,
-                        destCurrencyDiff: currDiff['EUR']); */
-                double outVal = _userInput2 / currDiff['INR'];
-                print('$outVal  ');
-                currValUserInptController.text = outVal.toStringAsFixed(4);
+
+                var currDiff =
+                    await WebService().fetchCurrencyConversion('INR');
+                double outVal = CurrencyConversion().conversion(
+                    sourceCurrency: _userInput2,
+                    destCurrencyDiff: currDiff['EUR']);
+                //double outVal = _userInput2 / currDiff['INR'];
+                currValUserInptController.text =
+                    outVal.toStringAsFixed(currDecimal);
               },
             ),
           ),
@@ -159,16 +160,16 @@ class _CurrencyRowState extends State<CurrencyRow> {
           width: 5,
         ),
         Text(
-          widget.currenciesList['currencies'][widget.index],
+          widget.currenciesList.addedCurrencies[widget.index]['name']
+              [widget.index],
           style: currencyWidgetStyle,
         ),
         IconButton(
           icon: Image.asset(
-            widget.currenciesList['images'][widget.index],
+            widget.currenciesList.addedCurrencies[widget.index]['image']
+                [widget.index],
           ),
-          onPressed: () {
-            _print();
-          },
+          onPressed: () {},
           iconSize: 80,
         ),
         Image.asset(
@@ -178,13 +179,15 @@ class _CurrencyRowState extends State<CurrencyRow> {
         ),
         IconButton(
           icon: Image.asset(
-            widget.currenciesList['images'][widget.index + 1],
+            widget.currenciesList.addedCurrencies[widget.index]['image']
+                [widget.index + 1],
           ),
           onPressed: () {},
           iconSize: 80,
         ),
         Text(
-          widget.currenciesList['currencies'][widget.index + 1],
+          widget.currenciesList.addedCurrencies[widget.index]['name']
+              [widget.index + 1],
           style: currencyWidgetStyle,
         ),
         SizedBox(
@@ -192,9 +195,5 @@ class _CurrencyRowState extends State<CurrencyRow> {
         ),
       ],
     );
-  }
-
-  void _print() {
-    print('userinput1 "$_userInput1"');
   }
 }

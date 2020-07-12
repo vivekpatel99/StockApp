@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'globals.dart';
+
 // https://itnext.io/app-theming-in-flutter-dark-mode-light-mode-27d9adf3cee
 const PRIMARYCOLOR = Colors.purple;
 const SECONDARYCOLOR = Colors.white;
@@ -34,21 +36,17 @@ class AppTheme {
   );
 
   static final ThemeData darkTheme = ThemeData(
+    fontFamily: 'Roboto',
     scaffoldBackgroundColor: Colors.black,
+    backgroundColor: Colors.black,
     appBarTheme: AppBarTheme(
       color: Colors.black,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
       textTheme: TextTheme(
-        headline1: TextStyle(
-          color: Colors.white,
-          fontSize: 20.0,
-        ),
-        subtitle1: TextStyle(
-          color: Colors.white70,
-          fontSize: 18.0,
-        ),
+        headline1: homeTitleStyle,
+        subtitle1: homeSubTitleStyle,
       ),
     ),
   );

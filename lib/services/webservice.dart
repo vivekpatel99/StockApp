@@ -17,11 +17,10 @@ class WebService {
       headers: {'Accept': 'application/json'},
     );
     //Future.delayed(Duration(seconds: 2), () => throw Exception(0));
-    print(_response.body);
+
     if (_response.statusCode == 200) {
       var convertDataToJson = jsonDecode(_response.body);
       var _currencyVal = await convertDataToJson['rates'];
-      print(_currencyVal['$fromToCurreny']);
 
       return _currencyVal;
     } else {

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class Currency {
+class CurrencyConversion {
   double conversion({
     @required double sourceCurrency,
     @required double destCurrencyDiff,
   }) {
-    print(
-        'sourceCurrency= $sourceCurrency and destCurrencyDiff $destCurrencyDiff');
+    //print(
+    //    'sourceCurrency= $sourceCurrency and destCurrencyDiff $destCurrencyDiff');
     return sourceCurrency * destCurrencyDiff;
   }
 }

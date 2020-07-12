@@ -11,9 +11,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        //backgroundColor: Theme.of(context).,
+        backgroundColor: Theme.of(context).backgroundColor,
         leading:
             IconButton(icon: Icon(Icons.menu), iconSize: 30, onPressed: () {}),
         actions: <Widget>[

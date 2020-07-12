@@ -19,31 +19,31 @@ class _CategorySelectorState extends State<CategorySelector> {
       height: 90.0,
       color: Colors.black,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 30.0),
-                child: Text(
-                  categories[index],
-                  style: TextStyle(
-                      fontFamily: 'Merriweather',
-                      fontSize: 24.0,
-                      color:
-                          index == selectedIndex ? Colors.white : Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2),
-                ),
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+              child: Text(
+                categories[index],
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 24.0,
+                    color: index == selectedIndex ? Colors.white : Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.2),
               ),
-            );
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
 }
