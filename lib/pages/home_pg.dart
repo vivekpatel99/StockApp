@@ -1,6 +1,6 @@
-import 'package:StockApp/widgets/category_selector.dart';
-import 'package:StockApp/widgets/currencies.dart';
 import 'package:flutter/material.dart';
+import 'package:hello/widgets/category_selector.dart';
+import 'package:hello/widgets/currencies_comparison_card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,9 +11,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Colors.black,
         leading:
             IconButton(icon: Icon(Icons.menu), iconSize: 30, onPressed: () {}),
         actions: <Widget>[
@@ -34,20 +34,70 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           CategorySelector(),
           Expanded(
-            child: Container(
-              height: 500.0,
-              decoration: BoxDecoration(
-                  //color: Colors.grey,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0))),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Currencies(),
-                  ],
+            child: SingleChildScrollView(child: CurrenciesComparisonCard()),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          return showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
+                child: Container(
+                  height: 150,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: <Widget>[
+                        CurrencyAlertInput(
+                          inputTitle: 'Fall Below',
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        CurrencyAlertInput(
+                          inputTitle: 'Rise Above',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        backgroundColor: Color(0xFFBB86FC),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class CurrencyAlertInput extends StatelessWidget {
+  final String inputTitle;
+  const CurrencyAlertInput({this.inputTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            inputTitle,
+            style: TextStyle(fontSize: 20),
+          ),
+          TextField(
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFBB86FC))),
+              border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFAFAFAF))),
             ),
           ),
         ],

@@ -1,4 +1,3 @@
-import 'package:StockApp/services/currencyservice.dart';
 import 'package:flutter/material.dart';
 
 import 'currency_row.dart';
@@ -9,7 +8,7 @@ class Currencies extends StatefulWidget {
 }
 
 class _CurrenciesState extends State<Currencies> {
-  /* final Map<String, List<String>> currenciesList1 = {
+  final Map<String, List<String>> currenciesList = {
     'currencies': [
       'EUR',
       'INR',
@@ -38,15 +37,7 @@ class _CurrenciesState extends State<Currencies> {
       'assets/images/europe.png',
       'assets/images/india.png',
     ],
-  }; */
-  var currenciesList;
-
-  @override
-  void initState() {
-    super.initState();
-    currenciesList = loadCurrencies();
-    print(currenciesList.addedCurrencies.length);
-  }
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +47,8 @@ class _CurrenciesState extends State<Currencies> {
         height: MediaQuery.of(context).size.height - 172,
         child: ListView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: currenciesList.addedCurrencies.length - 1,
+          itemCount: currenciesList['currencies'].length - 1,
           itemBuilder: (BuildContext context, int index) {
-            print(currenciesList);
             return CurrencyRow(currenciesList: currenciesList, index: index);
           },
         ),

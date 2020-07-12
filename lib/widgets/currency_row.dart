@@ -1,13 +1,13 @@
-import 'package:StockApp/globals.dart';
-import 'package:StockApp/services/webservice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello/globals.dart';
+import 'package:hello/services/webservice.dart';
 
 import 'currencies_conversion.dart';
 
 //------------------------------------------------------------------------------
 class CurrencyRow extends StatefulWidget {
-  final currenciesList;
+  final Map<String, List<String>> currenciesList;
   final int index;
 
   CurrencyRow({
@@ -21,9 +21,9 @@ class CurrencyRow extends StatefulWidget {
 
 //------------------------------------------------------------------------------
 class _CurrencyRowState extends State<CurrencyRow> {
-  double _userInput1;
-  double _userInput2;
-  var currDiff;
+  var _userInput1;
+  var _userInput2;
+
   bool inputEntered = false;
   TextEditingController currValUserInptController = TextEditingController();
   TextEditingController currValUserInptController2 = TextEditingController();
@@ -70,8 +70,6 @@ class _CurrencyRowState extends State<CurrencyRow> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: TextField(
-              style: currencyInputTextWidStyle,
-              cursorColor: Colors.white,
               controller: currValUserInptController,
               obscureText: false,
               textAlign: TextAlign.center,
@@ -83,21 +81,18 @@ class _CurrencyRowState extends State<CurrencyRow> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              //onTap: () => currValUserInptController.clear(),
+              onTap: () => currValUserInptController.clear(),
               onSubmitted: (String userInput) {
                 setState(
                   () async {
-                    print(widget.currenciesList.addedCurrencies[widget.index]);
                     _userInput1 = double.parse(currValUserInptController.text);
-
+                    var currDiff;
                     currDiff =
-                        await WebService().fetchCurrencyConversion('INR');
-                    var outVal = CurrencyConversion().conversion(
+                        await WebService().fetchCurrencyConversion('EUR_INR');
+                    var outVal = Currency().conversion(
                         sourceCurrency: _userInput1,
-                        destCurrencyDiff: currDiff['INR']);
-
-                    currValUserInptController2.text =
-                        outVal.toStringAsFixed(currDecimal);
+                        destCurrencyDiff: currDiff);
+                    currValUserInptController2.text = outVal.toStringAsFixed(4);
                   },
                 );
               },
@@ -118,7 +113,6 @@ class _CurrencyRowState extends State<CurrencyRow> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: TextField(
-              style: currencyInputTextWidStyle,
               controller: currValUserInptController2,
               obscureText: false,
               textAlign: TextAlign.center,
@@ -130,18 +124,15 @@ class _CurrencyRowState extends State<CurrencyRow> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              //onTap: () => currValUserInptController2.clear(),
-              onSubmitted: (String userInput) async {
-                _userInput2 = double.parse(currValUserInptController2.text);
+              onTap: () => currValUserInptController2.clear(),
+              onSubmitted: (String userInput) {
+                setState(
+                  () {
+                    _userInput2 = currValUserInptController2.text;
 
-                var currDiff =
-                    await WebService().fetchCurrencyConversion('INR');
-                double outVal = CurrencyConversion().conversion(
-                    sourceCurrency: _userInput2,
-                    destCurrencyDiff: currDiff['EUR']);
-                //double outVal = _userInput2 / currDiff['INR'];
-                currValUserInptController.text =
-                    outVal.toStringAsFixed(currDecimal);
+                    currValUserInptController.text = _userInput2;
+                  },
+                );
               },
             ),
           ),
@@ -160,16 +151,16 @@ class _CurrencyRowState extends State<CurrencyRow> {
           width: 5,
         ),
         Text(
-          widget.currenciesList.addedCurrencies[widget.index]['name']
-              [widget.index],
+          widget.currenciesList['currencies'][widget.index],
           style: currencyWidgetStyle,
         ),
         IconButton(
           icon: Image.asset(
-            widget.currenciesList.addedCurrencies[widget.index]['image']
-                [widget.index],
+            widget.currenciesList['images'][widget.index],
           ),
-          onPressed: () {},
+          onPressed: () {
+            _print();
+          },
           iconSize: 80,
         ),
         Image.asset(
@@ -179,15 +170,13 @@ class _CurrencyRowState extends State<CurrencyRow> {
         ),
         IconButton(
           icon: Image.asset(
-            widget.currenciesList.addedCurrencies[widget.index]['image']
-                [widget.index + 1],
+            widget.currenciesList['images'][widget.index + 1],
           ),
           onPressed: () {},
           iconSize: 80,
         ),
         Text(
-          widget.currenciesList.addedCurrencies[widget.index]['name']
-              [widget.index + 1],
+          widget.currenciesList['currencies'][widget.index + 1],
           style: currencyWidgetStyle,
         ),
         SizedBox(
@@ -195,5 +184,9 @@ class _CurrencyRowState extends State<CurrencyRow> {
         ),
       ],
     );
+  }
+
+  void _print() {
+    print('userinput1 "$_userInput1"');
   }
 }
