@@ -76,7 +76,7 @@ class _CurrencyRowState extends State<CurrencyRow> {
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration.collapsed(
                 hintText: '0.0',
-                hintStyle: currencyHintTextWidStyle,
+                hintStyle: kCurrencyHintTextWidStyle,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -119,7 +119,7 @@ class _CurrencyRowState extends State<CurrencyRow> {
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration.collapsed(
                 hintText: '0.0',
-                hintStyle: currencyHintTextWidStyle,
+                hintStyle: kCurrencyHintTextWidStyle,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -152,7 +152,7 @@ class _CurrencyRowState extends State<CurrencyRow> {
         ),
         Text(
           widget.currenciesList['currencies'][widget.index],
-          style: currencyWidgetStyle,
+          style: kCurrencyWidgetStyle,
         ),
         IconButton(
           icon: Image.asset(
@@ -177,7 +177,7 @@ class _CurrencyRowState extends State<CurrencyRow> {
         ),
         Text(
           widget.currenciesList['currencies'][widget.index + 1],
-          style: currencyWidgetStyle,
+          style: kCurrencyWidgetStyle,
         ),
         SizedBox(
           width: 5,

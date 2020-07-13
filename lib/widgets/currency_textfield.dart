@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hello/globals.dart';
+import 'package:hello/models/user_input.dart';
+import 'package:provider/provider.dart';
 
 class CurrencyTextField extends StatelessWidget {
   final String imagePath;
   final String currencyName;
-  const CurrencyTextField(
-      {@required this.imagePath, @required this.currencyName});
+  // var textFieldController = TextEditingController();
+
+  CurrencyTextField({@required this.imagePath, @required this.currencyName});
 
   @override
   Widget build(BuildContext context) {
+    // final userInputData =
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -28,15 +33,24 @@ class CurrencyTextField extends StatelessWidget {
             Container(
               height: 50,
               child: TextField(
+                controller: Provider.of<UserInput>(context, listen: false)
+                    .textFieldController, //context.read<UserInput>().textFieldController,
+
+                onChanged: (value) =>
+                    context.read<UserInput>().userInputCurrencyValue(
+                          userInput: value,
+                        ),
+
+                onTap: () => Provider.of<UserInput>(context, listen: false)
+                    .textFieldController
+                    .clear(),
+
+                onSubmitted: (String userInput) {
+                  context.read<UserInput>().outputCurrencyValue();
+                },
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: '0.0',
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFBB86FC))),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFAFAFAF))),
-                ),
+                decoration: kAlertTextFieldDecoration,
               ),
             ),
           ],

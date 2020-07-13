@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello/globals.dart';
 import 'package:hello/widgets/category_selector.dart';
 import 'package:hello/widgets/currencies_comparison_card.dart';
 
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        // TODO blur background when dialog show up
         onPressed: () {
           return showDialog(
             context: context,
@@ -49,8 +51,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Container(
                   height: 150,
+                  color: Color(0xFF1B1B1B),
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Row(
                       children: <Widget>[
                         CurrencyAlertInput(
@@ -92,13 +95,9 @@ class CurrencyAlertInput extends StatelessWidget {
             style: TextStyle(fontSize: 20),
           ),
           TextField(
+            keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFBB86FC))),
-              border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFAFAFAF))),
-            ),
+            decoration: kTextFieldDecoration,
           ),
         ],
       ),
