@@ -1,5 +1,6 @@
+import 'package:StockApp/widgets/currency_alert_popup.dart';
+import 'package:StockApp/widgets/currency_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:hello/widgets/currency_textfield.dart';
 
 class CurrenciesComparisonCard extends StatelessWidget {
 //  const CurrenciesComparisonCard({
@@ -37,7 +38,14 @@ class CurrenciesComparisonCard extends StatelessWidget {
                           height: 10.0,
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            return showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CurrencyAlertPopup();
+                              },
+                            );
+                          },
                           icon: Icon(
                             Icons.notifications,
                             size: 40,

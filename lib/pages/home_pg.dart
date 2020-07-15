@@ -1,7 +1,6 @@
+import 'package:StockApp/widgets/category_selector.dart';
+import 'package:StockApp/widgets/currencies_comparison_card.dart';
 import 'package:flutter/material.dart';
-import 'package:hello/globals.dart';
-import 'package:hello/widgets/category_selector.dart';
-import 'package:hello/widgets/currencies_comparison_card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -41,65 +40,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         // TODO blur background when dialog show up
-        onPressed: () {
-          return showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  height: 150,
-                  color: Color(0xFF1B1B1B),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      children: <Widget>[
-                        CurrencyAlertInput(
-                          inputTitle: 'Fall Below',
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        CurrencyAlertInput(
-                          inputTitle: 'Rise Above',
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+        onPressed: () {},
         backgroundColor: Color(0xFFBB86FC),
         child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class CurrencyAlertInput extends StatelessWidget {
-  final String inputTitle;
-  const CurrencyAlertInput({this.inputTitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            inputTitle,
-            style: TextStyle(fontSize: 20),
-          ),
-          TextField(
-            keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
-            decoration: kTextFieldDecoration,
-          ),
-        ],
       ),
     );
   }

@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'currency_row.dart';
 
-class Currencies extends StatefulWidget {
-  @override
-  _CurrenciesState createState() => _CurrenciesState();
-}
-
-class _CurrenciesState extends State<Currencies> {
+class Currencies extends StatelessWidget {
   final Map<String, List<String>> currenciesList = {
     'currencies': [
       'EUR',

@@ -1,9 +1,9 @@
+import 'package:StockApp/models/user_input.dart';
+import 'package:StockApp/pages/home_pg.dart';
 import 'package:flutter/material.dart';
-import 'package:hello/models/user_input.dart';
-import 'package:hello/pages/home_pg.dart';
 import 'package:provider/provider.dart';
 
-//TODO1 add functionality to convert input money to output money value
+//TODO1 add functionality to add more currency conversion tile by pressing floating button
 //TODO2 add WebServices into money conversion
 //TODO3 add Alert functionality
 //TODO4 merge and push

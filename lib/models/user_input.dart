@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class UserInput extends ChangeNotifier {
   double currencyInput;
   double currencyOutput;
-  double multiplier;
+  double currencyValueDifference;
 
   TextEditingController textFieldController = TextEditingController();
 
@@ -11,15 +11,27 @@ class UserInput extends ChangeNotifier {
 
   String userInputCurrencyValue({String userInput}) {
     final currencyInput = double.parse(userInput);
-    print(currencyInput);
     notifyListeners();
     return currencyInput.toStringAsFixed(2);
   }
 
   void outputCurrencyValue() {
-    final currencyOutput = currencyInput * multiplier;
-    print(currencyOutput);
+    final currencyOutput = currencyInput * currencyValueDifference;
+
     notifyListeners();
     textFieldController.text = currencyOutput.toStringAsFixed(2);
   }
 }
+
+// import 'package:flutter/cupertino.dart';
+
+// class Currency {
+//   double conversion({
+//     @required double sourceCurrency,
+//     @required double destCurrencyDiff,
+//   }) {
+//     print(
+//         'sourceCurrency= $sourceCurrency and destCurrencyDiff $destCurrencyDiff');
+//     return sourceCurrency * destCurrencyDiff;
+//   }
+// }

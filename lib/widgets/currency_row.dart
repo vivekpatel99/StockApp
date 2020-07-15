@@ -1,9 +1,6 @@
+import 'package:StockApp/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello/globals.dart';
-import 'package:hello/services/webservice.dart';
-
-import 'currencies_conversion.dart';
 
 //------------------------------------------------------------------------------
 class CurrencyRow extends StatefulWidget {
@@ -86,13 +83,13 @@ class _CurrencyRowState extends State<CurrencyRow> {
                 setState(
                   () async {
                     _userInput1 = double.parse(currValUserInptController.text);
-                    var currDiff;
-                    currDiff =
-                        await WebService().fetchCurrencyConversion('EUR_INR');
-                    var outVal = Currency().conversion(
-                        sourceCurrency: _userInput1,
-                        destCurrencyDiff: currDiff);
-                    currValUserInptController2.text = outVal.toStringAsFixed(4);
+                    // var currDiff;
+                    // currDiff =
+                    //     await WebService().fetchCurrencyConversion('EUR_INR');
+                    // var outVal = Currency().conversion(
+                    //     sourceCurrency: _userInput1,
+                    //     destCurrencyDiff: currDiff);
+                    // currValUserInptController2.text = outVal.toStringAsFixed(4);
                   },
                 );
               },

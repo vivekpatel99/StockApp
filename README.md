@@ -1,4 +1,4 @@
-# hello
+# StockApp
 
 A new Flutter project.
 
