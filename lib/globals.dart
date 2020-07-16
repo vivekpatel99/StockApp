@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 //------------------------------------------------------------------------------
+const String kCurrenciesJsonPath = 'assets/currencies.json';
+
+//------------------------------------------------------------------------------
 Color whiteColor = Colors.white;
 String font = 'Merriweather';
 

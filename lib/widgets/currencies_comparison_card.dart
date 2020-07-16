@@ -1,12 +1,17 @@
+import 'package:StockApp/models/currency_model.dart';
+import 'package:StockApp/models/user_input.dart';
 import 'package:StockApp/widgets/currency_alert_popup.dart';
 import 'package:StockApp/widgets/currency_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CurrenciesComparisonCard extends StatelessWidget {
 //  const CurrenciesComparisonCard({
 //    Key key,
 //  }) : super(key: key);
+  final List<CurrenyType> currency;
 
+  CurrenciesComparisonCard({this.currency});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,8 +26,10 @@ class CurrenciesComparisonCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 CurrencyTextField(
-                  imagePath: 'assets/images/eur.png',
-                  currencyName: 'EUR',
+                  controller: Provider.of<UserInput>(context, listen: false)
+                      .textFieldController,
+                  imagePath: currency[0].image,
+                  currencyName: currency[0].currency,
                 ),
                 Expanded(
                   child: Padding(
@@ -57,8 +64,10 @@ class CurrenciesComparisonCard extends StatelessWidget {
                   ),
                 ),
                 CurrencyTextField(
-                  imagePath: 'assets/images/inr.png',
-                  currencyName: 'INR',
+                  controller: Provider.of<UserInput>(context, listen: false)
+                      .textFieldController,
+                  imagePath: currency[1].image,
+                  currencyName: currency[1].currency,
                 ),
               ],
             ),

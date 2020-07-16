@@ -1,14 +1,15 @@
 //------------------------------------------------------------------------------
 // https://www.iban.com/exchange-rates
-class CurrencyLoadModel {
+class CurrencyModel {
   final List<CurrenyType> defaultCurrencies;
   final List<CurrenyType> addedCurrencies;
   final List<CurrenyType> allCurrencies;
 
-  CurrencyLoadModel(
+  CurrencyModel(
       {this.defaultCurrencies, this.addedCurrencies, this.allCurrencies});
 
-  factory CurrencyLoadModel.fromJson(Map<String, dynamic> parsedJson) {
+//------------------------------------------------------------
+  factory CurrencyModel.fromJson(Map<String, dynamic> parsedJson) {
     var dfltList = parsedJson['default'] as List;
     var addedList = parsedJson['added'] as List;
     var allList = parsedJson['all'] as List;
@@ -20,7 +21,7 @@ class CurrencyLoadModel {
     List<CurrenyType> allCurrenyList =
         allList.map((e) => CurrenyType.fromJson(e)).toList();
 
-    return CurrencyLoadModel(
+    return CurrencyModel(
         defaultCurrencies: dfltCurrenyList,
         addedCurrencies: addedCurrenyList,
         allCurrencies: allCurrenyList);

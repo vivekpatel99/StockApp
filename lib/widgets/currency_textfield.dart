@@ -6,12 +6,23 @@ import 'package:provider/provider.dart';
 class CurrencyTextField extends StatelessWidget {
   final String imagePath;
   final String currencyName;
+  final TextEditingController controller;
   // var textFieldController = TextEditingController();
 
-  CurrencyTextField({@required this.imagePath, @required this.currencyName});
+  CurrencyTextField(
+      {@required this.imagePath,
+      @required this.currencyName,
+      @required this.controller});
 
   @override
   Widget build(BuildContext context) {
+    // Provider.of<CurrencyModel>(context, listen: false).displayCurrencyTile();
+    // print(Provider.of<CurrencyModel>(context, listen: false)
+    //     .displayCurrenciesList
+    //     .length);
+    // return ListView.builder(
+    //     itemCount: 1,
+    //     itemBuilder: (context, index) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -19,6 +30,7 @@ class CurrencyTextField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             InkWell(
+              // TODO blur background when dialog show up
               onTap: () async {
                 // var currenciesList = await loadCurrencies();
                 // print(currenciesList.addedCurrencies.length);
@@ -39,8 +51,7 @@ class CurrencyTextField extends StatelessWidget {
             Container(
               height: 50,
               child: TextField(
-                controller: Provider.of<UserInput>(context, listen: false)
-                    .textFieldController,
+                controller: controller,
                 onChanged: (value) =>
                     context.read<UserInput>().userInputCurrencyValue(
                           userInput: value,
@@ -60,6 +71,8 @@ class CurrencyTextField extends StatelessWidget {
         ),
       ),
     );
+    // }
+    // );
   }
 }
 
