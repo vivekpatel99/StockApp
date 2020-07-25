@@ -1,80 +1,78 @@
-import 'package:StockApp/globals.dart';
-import 'package:StockApp/models/user_input.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class CurrencyTextField extends StatelessWidget {
-  final String imagePath;
-  final String currencyName;
-  final TextEditingController controller;
-  // var textFieldController = TextEditingController();
+// class CurrencyTextField extends StatelessWidget {
+//   final String imagePath;
+//   final String currencyName;
+//   final TextEditingController controller;
+//   final bool conversionFrom;
+//   // var textFieldController = TextEditingController();
 
-  CurrencyTextField(
-      {@required this.imagePath,
-      @required this.currencyName,
-      @required this.controller});
+//   CurrencyTextField(
+//       {@required this.imagePath,
+//       @required this.currencyName,
+//       @required this.controller,
+//       @required this.conversionFrom});
 
-  @override
-  Widget build(BuildContext context) {
-    // Provider.of<CurrencyModel>(context, listen: false).displayCurrencyTile();
-    // print(Provider.of<CurrencyModel>(context, listen: false)
-    //     .displayCurrenciesList
-    //     .length);
-    // return ListView.builder(
-    //     itemCount: 1,
-    //     itemBuilder: (context, index) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            InkWell(
-              // TODO blur background when dialog show up
-              onTap: () async {
-                // var currenciesList = await loadCurrencies();
-                // print(currenciesList.addedCurrencies.length);
-                myListView();
-              },
-              child: CircleAvatar(
-                radius: 25.0,
-                backgroundImage: AssetImage(imagePath),
-              ),
-            ),
-            Text(
-              currencyName,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            Container(
-              height: 50,
-              child: TextField(
-                controller: controller,
-                onChanged: (value) =>
-                    context.read<UserInput>().userInputCurrencyValue(
-                          userInput: value,
-                        ),
-                onTap: () => Provider.of<UserInput>(context, listen: false)
-                    .textFieldController
-                    .clear(),
-                onSubmitted: (String userInput) {
-                  context.read<UserInput>().outputCurrencyValue();
-                },
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                decoration: kAlertTextFieldDecoration,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-    // }
-    // );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     // Provider.of<CurrencyModel>(context, listen: false).displayCurrencyTile();
+//     // print(Provider.of<CurrencyModel>(context, listen: false)
+//     //     .displayCurrenciesList
+//     //     .length);
+//     // return ListView.builder(
+//     //     itemCount: 1,
+//     //     itemBuilder: (context, index) {
+//     return Expanded(
+//       child: Padding(
+//         padding: const EdgeInsets.all(15.0),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.spaceAround,
+//           children: <Widget>[
+//             InkWell(
+//               //TODO5 blur background when dialog show up
+//               onTap: () async {
+//                 // var currenciesList = await loadCurrencies();
+//                 // print(currenciesList.addedCurrencies.length);
+//                 myListView();
+//               },
+//               child: CircleAvatar(
+//                 radius: 25.0,
+//                 backgroundImage: AssetImage(imagePath),
+//               ),
+//             ),
+//             Text(
+//               currencyName,
+//               style: TextStyle(fontWeight: FontWeight.bold),
+//             ),
+//             SizedBox(
+//               height: 8.0,
+//             ),
+//             Container(
+//               height: 50,
+//               child: TextField(
+//                 controller: controller,
+//                 onChanged: (value) =>
+//                     context.read<UserInput>().userInputCurrencyValue = value,
+//                 onTap: () => controller.clear(),
+//                 onSubmitted: (String userInput) {
+//                   context
+//                       .read<UserInput>()
+//                       .outputCurrencyValue(conversionFrom: conversionFrom);
+//                   print(userInput);
+//                 },
+//                 textAlign: TextAlign.center,
+//                 keyboardType: TextInputType.number,
+//                 decoration: kAlertTextFieldDecoration,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//     // }
+//     // );
+//   }
+// }
 
 Widget myListView() {
   final europeanCountries = [

@@ -1,8 +1,4 @@
-import 'package:flutter/foundation.dart';
-
-import 'currency_model.dart';
-
-class Currency_ extends ChangeNotifier {
+/* class Currency_ extends ChangeNotifier {
   CurrencyModel currency;
   List<List<CurrenyType>> displayCurrenciesList = [];
 
@@ -28,4 +24,4 @@ class Currency_ extends ChangeNotifier {
   void newCurrenyTileAdd() {
     displayCurrenciesList.add(currency.defaultCurrencies);
   }
-}
+} */

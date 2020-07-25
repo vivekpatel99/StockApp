@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<CurrenciesComparisonCard> comparisionCard = [];
   Currency currency = Currency();
+  bool floatingButtonPressed = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,31 +38,38 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           CategorySelector(),
           Expanded(
-            child: FutureBuilder(
-                future: currency.loadCurrencies(),
-                builder: (context, currencyListSnap) {
-                  if (currencyListSnap.connectionState ==
-                          ConnectionState.none &&
-                      currencyListSnap.hasData == null) {
-                    return Container();
-                  }
-                  return ListView.builder(
-                    itemCount: comparisionCard.length,
-                    itemBuilder: (context, index) {
-                      return comparisionCard[index];
-                    },
-                  );
-                }),
+            child: floatingButtonPressed == false
+                ? Container()
+                : FutureBuilder(
+                    future: currency.loadCurrencies(),
+                    builder: (context, currencyListSnap) {
+                      if (currencyListSnap.connectionState ==
+                              ConnectionState.none &&
+                          currencyListSnap.hasData == null) {
+                        return Container();
+                      }
+                      return ListView.builder(
+                        itemCount: comparisionCard.length,
+                        itemBuilder: (context, index) {
+                          return comparisionCard[index];
+                        },
+                      );
+                    }),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          floatingButtonPressed = true;
           var currencyList = await currency.loadCurrencies();
-          setState(() {
-            comparisionCard.add(CurrenciesComparisonCard(
-                currency: currencyList.addedCurrencies));
-          });
+          setState(
+            () {
+              comparisionCard.add(
+                CurrenciesComparisonCard(
+                    currency: currencyList.addedCurrencies),
+              );
+            },
+          );
         },
         backgroundColor: Color(0xFFBB86FC),
         child: Icon(Icons.add),

@@ -4,11 +4,11 @@ import 'package:StockApp/services/currencyservice.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-//TODO 1 add functionality to add more currency conversion tile by pressing floating button
-//TODO 1.1 long pressed remove currency conversion tile
-//TODO 2 add WebServices into money conversion
-//TODO 3 add Alert functionality
-//TODO 4  merge and push
+//TODO1 add functionality to add more currency conversion tile by pressing floating button
+//TODO1.1 long pressed remove currency conversion tile
+//TODO2 add WebServices into money conversion
+//TODO3 add Alert functionality
+//TODO4  merge and push
 
 void main() => runApp(StockApp());
 

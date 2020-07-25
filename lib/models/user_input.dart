@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 
 class UserInput extends ChangeNotifier {
-  double currencyInput;
+  double _currencyInput = 0;
   double currencyOutput;
-  double currencyValueDifference;
+  double currencyValueDifference = 1.0;
 
   TextEditingController textFieldController = TextEditingController();
+  TextEditingController textFieldController2 = TextEditingController();
 
-//  void write
+  set userInputCurrencyValue(String userInput) {
+    _currencyInput = double.parse(userInput);
+    print('currencyInput = $_currencyInput');
 
-  String userInputCurrencyValue({String userInput}) {
-    final currencyInput = double.parse(userInput);
-    notifyListeners();
-    return currencyInput.toStringAsFixed(2);
+    // return currencyInput.toStringAsFixed(2);
   }
 
-  void outputCurrencyValue() {
-    final currencyOutput = currencyInput * currencyValueDifference;
+  get outputCurrencyValueRight {
+    print('outputCurrencyValueRight $_currencyInput');
+    final currencyOutput = _currencyInput * currencyValueDifference;
+    print('outputCurrencyValue');
+    textFieldController2.text = currencyOutput.toStringAsFixed(2);
+  }
 
-    notifyListeners();
+  get outputCurrencyValueLeft {
+    print('outputCurrencyValueLeft $_currencyInput');
+    final currencyOutput = _currencyInput * currencyValueDifference;
+    print('outputCurrencyValue');
+
     textFieldController.text = currencyOutput.toStringAsFixed(2);
   }
 }
