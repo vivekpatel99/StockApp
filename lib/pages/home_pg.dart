@@ -1,7 +1,12 @@
+import 'package:StockApp/models/currency_model.dart';
 import 'package:StockApp/services/currencyservice.dart';
 import 'package:StockApp/widgets/category_selector.dart';
 import 'package:StockApp/widgets/currencies_comparison_card.dart';
 import 'package:flutter/material.dart';
+
+import '../others/mylog_printer.dart';
+
+final log = getLogger('HomePage');
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,8 +16,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<CurrenciesComparisonCard> comparisionCard = [];
   Currency currency = Currency();
-
+  CurrencyModel currencyList;
   bool floatingButtonPressed = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,20 +47,10 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: floatingButtonPressed == false
                 ? Container()
-                : FutureBuilder(
-                    future: currency.loadCurrencies(),
-                    builder: (context, currencyListSnap) {
-                      if (currencyListSnap.connectionState ==
-                              ConnectionState.none &&
-                          currencyListSnap.hasData == null) {
-                        return Container();
-                      }
-                      return ListView.builder(
-                        itemCount: comparisionCard.length,
-                        itemBuilder: (context, index) {
-                          return comparisionCard[index];
-                        },
-                      );
+                : ListView.builder(
+                    itemCount: comparisionCard.length,
+                    itemBuilder: (context, index) {
+                      return comparisionCard[index];
                     },
                   ),
           ),
@@ -63,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           floatingButtonPressed = true;
-          var currencyList = await currency.loadCurrencies();
+          currencyList = await currency.loadCurrencies();
           setState(
             () {
               comparisionCard.add(

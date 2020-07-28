@@ -1,11 +1,14 @@
 import 'package:StockApp/globals.dart';
 import 'package:StockApp/models/currency_model.dart';
 import 'package:StockApp/models/user_input.dart';
+import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/services/webservice.dart';
 import 'package:StockApp/widgets/currency_alert_popup.dart';
 import 'package:StockApp/widgets/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+final log = getLogger('CurrenciesComparisonCard');
 
 class CurrenciesComparisonCard extends StatelessWidget {
   CurrenciesComparisonCard({

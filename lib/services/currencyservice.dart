@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:StockApp/globals.dart';
 import 'package:StockApp/models/currency_model.dart';
+import 'package:StockApp/others/mylog_printer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+
+final log = getLogger('Currency');
 
 class Currency extends ChangeNotifier {
   // Currency._();
@@ -20,13 +23,13 @@ class Currency extends ChangeNotifier {
 //------------------------------------------------------------
 
   Future<CurrencyModel> loadCurrencies() async {
-    print('currency service');
+    // log.i('loadCurrencies');
 
     String jsonCurrencies = await _loadCurrencyAsset();
     final jsonResponse = json.decode(jsonCurrencies);
     currency = CurrencyModel.fromJson(jsonResponse);
 
-    print(currency.defaultCurrencies[0].name);
+    log.i('${currency.defaultCurrencies[0].name}');
 
     return currency;
   }
@@ -40,12 +43,10 @@ class Currency extends ChangeNotifier {
 
 //------------------------------------------------------------
   void displayCurrencyTile() async {
-    // setUp();
-    print(currency.addedCurrencies[0].name);
     if (currency.addedCurrencies.isNotEmpty) {
       displayCurrenciesList.add(currency.addedCurrencies);
     }
-    print(displayCurrenciesList);
+    log.i(displayCurrenciesList);
   }
 
 //------------------------------------------------------------
