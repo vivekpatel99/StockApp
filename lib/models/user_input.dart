@@ -1,9 +1,12 @@
+import 'package:StockApp/services/webservice.dart';
 import 'package:flutter/material.dart';
 
 class UserInput extends ChangeNotifier {
-  double _currencyInput = 0;
-  double currencyOutput;
-  double currencyValueDifference = 1.0;
+  double _currencyInput;
+  double _currencyOutput;
+  // double _currencyValueDifference = 85.0;
+
+  WebService currencyConv = WebService();
 
   TextEditingController textFieldController = TextEditingController();
   TextEditingController textFieldController2 = TextEditingController();
@@ -15,19 +18,16 @@ class UserInput extends ChangeNotifier {
     // return currencyInput.toStringAsFixed(2);
   }
 
-  get outputCurrencyValueRight {
-    print('outputCurrencyValueRight $_currencyInput');
-    final currencyOutput = _currencyInput * currencyValueDifference;
-    print('outputCurrencyValue');
-    textFieldController2.text = currencyOutput.toStringAsFixed(2);
+  void outputCurrencyValueLeft(Future<double> _currencyValueDifference) async {
+    print('outputCurrencyValue $_currencyInput and $_currencyValueDifference');
+    _currencyOutput = _currencyInput * await _currencyValueDifference;
+    textFieldController.text = _currencyOutput.toStringAsFixed(2);
   }
 
-  get outputCurrencyValueLeft {
-    print('outputCurrencyValueLeft $_currencyInput');
-    final currencyOutput = _currencyInput * currencyValueDifference;
-    print('outputCurrencyValue');
-
-    textFieldController.text = currencyOutput.toStringAsFixed(2);
+  void outputCurrencyValueRight(Future<double> _currencyValueDifference) async {
+    print('outputCurrencyValue $_currencyInput and $_currencyValueDifference');
+    _currencyOutput = _currencyInput * await _currencyValueDifference;
+    textFieldController2.text = _currencyOutput.toStringAsFixed(2);
   }
 }
 

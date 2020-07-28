@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<CurrenciesComparisonCard> comparisionCard = [];
   Currency currency = Currency();
+
   bool floatingButtonPressed = false;
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,8 @@ class _HomePageState extends State<HomePage> {
                           return comparisionCard[index];
                         },
                       );
-                    }),
+                    },
+                  ),
           ),
         ],
       ),
@@ -66,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             () {
               comparisionCard.add(
                 CurrenciesComparisonCard(
-                    currency: currencyList.addedCurrencies),
+                    key: UniqueKey(), currency: currencyList.addedCurrencies),
               );
             },
           );

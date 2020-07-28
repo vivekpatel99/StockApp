@@ -1,18 +1,20 @@
 import 'package:StockApp/globals.dart';
 import 'package:StockApp/models/currency_model.dart';
 import 'package:StockApp/models/user_input.dart';
+import 'package:StockApp/services/webservice.dart';
 import 'package:StockApp/widgets/currency_alert_popup.dart';
 import 'package:StockApp/widgets/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CurrenciesComparisonCard extends StatelessWidget {
-//  const CurrenciesComparisonCard({
-//    Key key,
-//  }) : super(key: key);
-  final List<CurrenyType> currency;
+  CurrenciesComparisonCard({
+    this.currency,
+    Key key,
+  }) : super(key: key);
 
-  CurrenciesComparisonCard({this.currency});
+  final List<CurrenyType> currency;
+  final WebService webservice = WebService();
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +58,17 @@ class CurrenciesComparisonCard extends StatelessWidget {
                           Container(
                             height: 50,
                             child: TextField(
+                              key: UniqueKey(),
                               controller: inputData.textFieldController,
                               onChanged: (value) =>
                                   inputData.userInputCurrencyValue = value,
                               onTap: () =>
                                   inputData.textFieldController.clear(),
                               onSubmitted: (String userInput) {
-                                inputData.outputCurrencyValueRight;
+                                final resultValue =
+                                    webservice.fetchCurrencyConversion(
+                                        '${currency[0].currency}_${currency[1].currency}');
+                                inputData.outputCurrencyValueRight(resultValue);
                               },
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.number,
@@ -133,13 +139,17 @@ class CurrenciesComparisonCard extends StatelessWidget {
                           Container(
                             height: 50,
                             child: TextField(
+                              key: UniqueKey(),
                               controller: inputData.textFieldController2,
                               onChanged: (value) =>
                                   inputData.userInputCurrencyValue = value,
                               onTap: () =>
                                   inputData.textFieldController2.clear(),
                               onSubmitted: (String userInput) {
-                                inputData.outputCurrencyValueLeft;
+                                final resultValue =
+                                    webservice.fetchCurrencyConversion(
+                                        '${currency[1].currency}_${currency[0].currency}');
+                                inputData.outputCurrencyValueLeft(resultValue);
                               },
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.number,
