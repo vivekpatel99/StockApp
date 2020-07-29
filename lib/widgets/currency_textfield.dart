@@ -128,18 +128,29 @@ Widget myListView() {
     'United Kingdom',
     'Vatican City'
   ];
-  print('hrer');
+  // print('hrer');
+
+  Widget _getListItemTile(BuildContext context, int index) {
+    print('hrer');
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 4),
+      // color:
+      //     europeanCountries[index].isSelected ? Colors.red[100] : Colors.white,
+      child: ListTile(
+        title: Text(europeanCountries[index]),
+      ),
+    );
+  }
+
   return ListView.builder(
-      itemCount:
-          europeanCountries.length, // currenciesList.addedCurrencies.length,
-      itemBuilder: (context, int index) {
-        print(europeanCountries[index]);
-        return ListTile(title: Text(europeanCountries[index]));
-        // CircleAvatar(
-        //   radius: 12,
-        //   backgroundImage: AssetImage(
-        //       currenciesList.addedCurrencies[index].image),
-        //   child: Text(currenciesList.addedCurrencies[index].name),
-        // );
-      });
+    itemCount:
+        europeanCountries.length, // currenciesList.addedCurrencies.length,
+    itemBuilder: _getListItemTile,
+    // CircleAvatar(
+    //   radius: 12,
+    //   backgroundImage: AssetImage(
+    //       currenciesList.addedCurrencies[index].image),
+    //   child: Text(currenciesList.addedCurrencies[index].name),
+    // );
+  );
 }

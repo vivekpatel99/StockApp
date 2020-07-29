@@ -36,14 +36,19 @@ class Currency extends ChangeNotifier {
   }
 
 //------------------------------------------------------------
-  // static Future<Currency> create() async {
-  //   Currency currency = Currency._();
-  //   await Currency.create();
-  //   return currency;
-  // }
+  Future<List<CurrenyType>> loadInitCurrencies() async {
+    log.i('loadInitCurrencies');
+
+    CurrencyModel _currency = await loadCurrencies();
+
+    // log.i('${currency.defaultCurrencies[0].name}');
+    log.i('${_currency.addedCurrencies}');
+    return _currency.addedCurrencies;
+  }
 
 //------------------------------------------------------------
   void displayCurrencyTile() async {
+    final currency = await loadCurrencies();
     if (currency.addedCurrencies.isNotEmpty) {
       displayCurrenciesList.add(currency.addedCurrencies);
     }

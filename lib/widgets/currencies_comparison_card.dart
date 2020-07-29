@@ -45,7 +45,7 @@ class CurrenciesComparisonCard extends StatelessWidget {
                             onTap: () async {
                               // var currenciesList = await loadCurrencies();
                               // print(currenciesList.addedCurrencies.length);
-                              myListView();
+                              return myListView();
                             },
                             child: CircleAvatar(
                               radius: 25.0,

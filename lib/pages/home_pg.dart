@@ -13,11 +13,10 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  List<CurrenciesComparisonCard> comparisionCard = [];
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  List<CurrenciesComparisonCard> comparisionCardList = [];
   Currency currency = Currency();
-  CurrencyModel currencyList;
-  bool floatingButtonPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +44,31 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           CategorySelector(),
           Expanded(
-            child: floatingButtonPressed == false
-                ? Container()
-                : ListView.builder(
-                    itemCount: comparisionCard.length,
+            child: comparisionCardList.length != 0
+                ? ListView.builder(
+                    itemCount: comparisionCardList.length,
                     itemBuilder: (context, index) {
-                      return comparisionCard[index];
+                      return comparisionCardList[index];
+                    },
+                  )
+                : FutureBuilder(
+                    future: currency.loadInitCurrencies(),
+                    builder: (context, currencyListSnap) {
+                      if (currencyListSnap.hasData) {
+                        return ListView.builder(
+                            itemCount: currencyListSnap.data.length,
+                            itemBuilder: (context, index) {
+                              comparisionCardList.add(
+                                CurrenciesComparisonCard(
+                                    currency: currencyListSnap.data),
+                              );
+                              return CurrenciesComparisonCard(
+                                  currency: currencyListSnap.data);
+                            });
+                      } else if (currencyListSnap.hasError) {
+                        return Container();
+                      }
+                      return CircularProgressIndicator();
                     },
                   ),
           ),
@@ -58,15 +76,12 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          floatingButtonPressed = true;
-          currencyList = await currency.loadCurrencies();
+          CurrencyModel currencyList = await currency.loadCurrencies();
+          comparisionCardList.add(
+            CurrenciesComparisonCard(currency: currencyList.addedCurrencies),
+          );
           setState(
-            () {
-              comparisionCard.add(
-                CurrenciesComparisonCard(
-                    key: UniqueKey(), currency: currencyList.addedCurrencies),
-              );
-            },
+            () {},
           );
         },
         backgroundColor: Color(0xFFBB86FC),
