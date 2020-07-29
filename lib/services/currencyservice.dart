@@ -13,7 +13,7 @@ class Currency extends ChangeNotifier {
   // Currency._();
 
   CurrencyModel currency;
-  List<List<CurrenyType>> displayCurrenciesList = [];
+  List<List<CurrencyType>> displayCurrenciesList = [];
 
 //------------------------------------------------------------
 
@@ -36,14 +36,14 @@ class Currency extends ChangeNotifier {
   }
 
 //------------------------------------------------------------
-  Future<List<CurrenyType>> loadInitCurrencies() async {
+  Future<List<List<CurrencyType>>> loadInitCurrencies() async {
     log.i('loadInitCurrencies');
 
     CurrencyModel _currency = await loadCurrencies();
 
     // log.i('${currency.defaultCurrencies[0].name}');
     log.i('${_currency.addedCurrencies}');
-    return _currency.addedCurrencies;
+    return [_currency.addedCurrencies, _currency.defaultCurrencies];
   }
 
 //------------------------------------------------------------

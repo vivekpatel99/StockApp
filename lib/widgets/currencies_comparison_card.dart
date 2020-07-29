@@ -17,7 +17,7 @@ class CurrenciesComparisonCard extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  final List<CurrenyType> currency;
+  final List<CurrencyType> currency;
   final WebService webservice = WebService();
 
   @override

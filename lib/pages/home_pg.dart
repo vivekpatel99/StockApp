@@ -1,5 +1,4 @@
 import 'package:StockApp/models/currency_model.dart';
-import 'package:StockApp/services/currencyservice.dart';
 import 'package:StockApp/widgets/category_selector.dart';
 import 'package:StockApp/widgets/currencies_comparison_card.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,17 @@ import '../others/mylog_printer.dart';
 
 final log = getLogger('HomePage');
 
+class HomePageArgs {
+  final List<CurrencyType> addedcurrencyList;
+  final List<CurrencyType> dfltcurrencyList;
+
+  HomePageArgs(
+      {@required this.addedcurrencyList, @required this.dfltcurrencyList});
+}
+
 class HomePage extends StatefulWidget {
+  static const String id = 'home_page';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -16,10 +25,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   List<CurrenciesComparisonCard> comparisionCardList = [];
-  Currency currency = Currency();
 
   @override
   Widget build(BuildContext context) {
+    final HomePageArgs args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -51,34 +60,24 @@ class _HomePageState extends State<HomePage>
                       return comparisionCardList[index];
                     },
                   )
-                : FutureBuilder(
-                    future: currency.loadInitCurrencies(),
-                    builder: (context, currencyListSnap) {
-                      if (currencyListSnap.hasData) {
-                        return ListView.builder(
-                            itemCount: currencyListSnap.data.length,
-                            itemBuilder: (context, index) {
-                              comparisionCardList.add(
-                                CurrenciesComparisonCard(
-                                    currency: currencyListSnap.data),
-                              );
-                              return CurrenciesComparisonCard(
-                                  currency: currencyListSnap.data);
-                            });
-                      } else if (currencyListSnap.hasError) {
-                        return Container();
-                      }
-                      return CircularProgressIndicator();
-                    },
-                  ),
+                : ListView.builder(
+                    itemCount: args.addedcurrencyList.length,
+                    itemBuilder: (context, index) {
+                      comparisionCardList.add(
+                        CurrenciesComparisonCard(
+                            currency: args.dfltcurrencyList),
+                      );
+                      return CurrenciesComparisonCard(
+                          currency: args.addedcurrencyList);
+                    }),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          CurrencyModel currencyList = await currency.loadCurrencies();
+          // CurrencyModel currencyList = await currency.loadCurrencies();
           comparisionCardList.add(
-            CurrenciesComparisonCard(currency: currencyList.addedCurrencies),
+            CurrenciesComparisonCard(currency: args.dfltcurrencyList),
           );
           setState(
             () {},

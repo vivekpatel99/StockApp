@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------
 // https://www.iban.com/exchange-rates
 class CurrencyModel {
-  final List<CurrenyType> defaultCurrencies;
-  final List<CurrenyType> addedCurrencies;
-  final List<CurrenyType> allCurrencies;
+  final List<CurrencyType> defaultCurrencies;
+  final List<CurrencyType> addedCurrencies;
+  final List<CurrencyType> allCurrencies;
 
   CurrencyModel(
       {this.defaultCurrencies, this.addedCurrencies, this.allCurrencies});
@@ -14,12 +14,12 @@ class CurrencyModel {
     var addedList = parsedJson['added'] as List;
     var allList = parsedJson['all'] as List;
 
-    List<CurrenyType> dfltCurrenyList =
-        dfltList.map((e) => CurrenyType.fromJson(e)).toList();
-    List<CurrenyType> addedCurrenyList =
-        addedList.map((e) => CurrenyType.fromJson(e)).toList();
-    List<CurrenyType> allCurrenyList =
-        allList.map((e) => CurrenyType.fromJson(e)).toList();
+    List<CurrencyType> dfltCurrenyList =
+        dfltList.map((e) => CurrencyType.fromJson(e)).toList();
+    List<CurrencyType> addedCurrenyList =
+        addedList.map((e) => CurrencyType.fromJson(e)).toList();
+    List<CurrencyType> allCurrenyList =
+        allList.map((e) => CurrencyType.fromJson(e)).toList();
 
     return CurrencyModel(
         defaultCurrencies: dfltCurrenyList,
@@ -29,15 +29,15 @@ class CurrencyModel {
 }
 
 //------------------------------------------------------------------------------
-class CurrenyType {
+class CurrencyType {
   final String name;
   final String currency;
   final String image;
 
-  CurrenyType({this.name, this.currency, this.image});
+  CurrencyType({this.name, this.currency, this.image});
 
-  factory CurrenyType.fromJson(Map<String, dynamic> parsedJson) {
-    return CurrenyType(
+  factory CurrencyType.fromJson(Map<String, dynamic> parsedJson) {
+    return CurrencyType(
         name: parsedJson['name'],
         currency: parsedJson['currency'],
         image: parsedJson['image']);
