@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 final log = getLogger('CurrenciesComparisonCard');
 
+//==============================================================================
 class CurrenciesComparisonCard extends StatelessWidget {
   CurrenciesComparisonCard({
     this.currency,

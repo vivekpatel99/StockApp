@@ -2,8 +2,9 @@ import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/services/webservice.dart';
 import 'package:flutter/material.dart';
 
-final log = getLogger('CurrenciesComparisonCard');
+final log = getLogger('UserInput');
 
+//==============================================================================
 class UserInput extends ChangeNotifier {
   double _currencyInput;
   double _currencyOutput;
@@ -14,6 +15,7 @@ class UserInput extends ChangeNotifier {
   TextEditingController textFieldController = TextEditingController();
   TextEditingController textFieldController2 = TextEditingController();
 
+//------------------------------------------------------------------------------
   set userInputCurrencyValue(String userInput) {
     log.i('currencyInput = $userInput');
     _currencyInput = double.parse(userInput);
@@ -21,12 +23,14 @@ class UserInput extends ChangeNotifier {
     // return currencyInput.toStringAsFixed(2);
   }
 
+//------------------------------------------------------------------------------
   void outputCurrencyValueLeft(Future<double> _currencyValueDifference) async {
     _currencyOutput = _currencyInput * await _currencyValueDifference;
     log.i('$_currencyInput and $_currencyValueDifference');
     textFieldController.text = _currencyOutput.toStringAsFixed(2);
   }
 
+//------------------------------------------------------------------------------
   void outputCurrencyValueRight(Future<double> _currencyValueDifference) async {
     _currencyOutput = _currencyInput * await _currencyValueDifference;
     log.i('$_currencyInput and $_currencyValueDifference');

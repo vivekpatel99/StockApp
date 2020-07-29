@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 
 final log = getLogger('Currency');
 
+//==============================================================================
 class Currency extends ChangeNotifier {
   // Currency._();
 
@@ -23,13 +24,13 @@ class Currency extends ChangeNotifier {
 //------------------------------------------------------------
 
   Future<CurrencyModel> loadCurrencies() async {
-    // log.i('loadCurrencies');
+    log.i('loadCurrencies');
 
     String jsonCurrencies = await _loadCurrencyAsset();
     final jsonResponse = json.decode(jsonCurrencies);
     currency = CurrencyModel.fromJson(jsonResponse);
 
-    log.i('${currency.defaultCurrencies[0].name}');
+    // log.i('${currency.defaultCurrencies[0].name}');
 
     return currency;
   }
