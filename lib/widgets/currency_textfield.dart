@@ -73,6 +73,95 @@ import 'package:flutter/material.dart';
 //     // );
 //   }
 // }
+const List<String> europeanCountries = [
+  'Albania',
+  'Andorra',
+  'Armenia',
+  'Austria',
+  'Azerbaijan',
+  'Belarus',
+  'Belgium',
+  'Bosnia and Herzegovina',
+  'Bulgaria',
+  'Croatia',
+  'Cyprus',
+  'Czech Republic',
+  'Denmark',
+  'Estonia',
+  'Finland',
+  'France',
+  'Georgia',
+  'Germany',
+  'Greece',
+  'Hungary',
+  'Iceland',
+  'Ireland',
+  'Italy',
+  'Kazakhstan',
+  'Kosovo',
+  'Latvia',
+  'Liechtenstein',
+  'Lithuania',
+  'Luxembourg',
+  'Macedonia',
+  'Malta',
+  'Moldova',
+  'Monaco',
+  'Montenegro',
+  'Netherlands',
+  'Norway',
+  'Poland',
+  'Portugal',
+  'Romania',
+  'Russia',
+  'San Marino',
+  'Serbia',
+  'Slovakia',
+  'Slovenia',
+  'Spain',
+  'Sweden',
+  'Switzerland',
+  'Turkey',
+  'Ukraine',
+  'United Kingdom',
+  'Vatican City'
+];
+
+class CurrencySelectionView extends StatefulWidget {
+  static const String id = 'currency_selectionview_page';
+  @override
+  _CurrencySelectionViewState createState() => _CurrencySelectionViewState();
+}
+
+class _CurrencySelectionViewState extends State<CurrencySelectionView> {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(15.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                elevation: 12.0,
+                child: ListView.builder(
+                    itemCount: europeanCountries.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: Text(europeanCountries[index]),
+                      );
+                    }),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 Widget myListView() {
   final europeanCountries = [
@@ -128,16 +217,19 @@ Widget myListView() {
     'United Kingdom',
     'Vatican City'
   ];
-  // print('hrer');
-
+  print('herer');
   Widget _getListItemTile(BuildContext context, int index) {
-    print('hrer');
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 4),
-      // color:
-      //     europeanCountries[index].isSelected ? Colors.red[100] : Colors.white,
-      child: ListTile(
-        title: Text(europeanCountries[index]),
+    print('herer');
+    return Scaffold(
+      body: Material(
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 4),
+          // color:
+          //     europeanCountries[index].isSelected ? Colors.red[100] : Colors.white,
+          child: ListTile(
+            title: Text(europeanCountries[index]),
+          ),
+        ),
       ),
     );
   }
@@ -145,7 +237,20 @@ Widget myListView() {
   return ListView.builder(
     itemCount:
         europeanCountries.length, // currenciesList.addedCurrencies.length,
-    itemBuilder: _getListItemTile,
+    itemBuilder: (BuildContext context, int index) {
+      return Scaffold(
+        body: Material(
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 4),
+            // color:
+            //     europeanCountries[index].isSelected ? Colors.red[100] : Colors.white,
+            child: ListTile(
+              title: Text(europeanCountries[index]),
+            ),
+          ),
+        ),
+      );
+    },
     // CircleAvatar(
     //   radius: 12,
     //   backgroundImage: AssetImage(

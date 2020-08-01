@@ -83,13 +83,6 @@ class _CurrencyRowState extends State<CurrencyRow> {
                 setState(
                   () async {
                     _userInput1 = double.parse(currValUserInptController.text);
-                    // var currDiff;
-                    // currDiff =
-                    //     await WebService().fetchCurrencyConversion('EUR_INR');
-                    // var outVal = Currency().conversion(
-                    //     sourceCurrency: _userInput1,
-                    //     destCurrencyDiff: currDiff);
-                    // currValUserInptController2.text = outVal.toStringAsFixed(4);
                   },
                 );
               },

@@ -3,6 +3,7 @@ import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/pages/loading_pg.dart';
 import 'package:StockApp/services/currencyservice.dart';
+import 'package:StockApp/widgets/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 //TODO2 add WebServices into money conversion
 //TODO3 add Alert functionality
 //TODO4  merge and push
-
+//https://github.com/londonappbrewery/Flash-Chat-Flutter-Complete/blob/master/lib/main.dart
 void main() {
   Logger.level = Level.info;
   runApp(StockApp());
@@ -33,6 +34,7 @@ class StockApp extends StatelessWidget {
         routes: {
           LoadingScreen.id: (context) => LoadingScreen(),
           HomePage.id: (context) => HomePage(),
+          CurrencySelectionView.id: (context) => CurrencySelectionView(),
         },
         theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,

@@ -12,12 +12,13 @@ final log = getLogger('CurrenciesComparisonCard');
 
 //==============================================================================
 class CurrenciesComparisonCard extends StatelessWidget {
+  final List<CurrencyType> currency;
+
   CurrenciesComparisonCard({
     this.currency,
     Key key,
   }) : super(key: key);
 
-  final List<CurrencyType> currency;
   final WebService webservice = WebService();
 
   @override
@@ -27,144 +28,156 @@ class CurrenciesComparisonCard extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 180,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 12.0,
-              color: Color(0xFF1B1B1B),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          InkWell(
-                            //TODO5 blur background when dialog show up
-                            onTap: () async {
-                              // var currenciesList = await loadCurrencies();
-                              // print(currenciesList.addedCurrencies.length);
-                              return myListView();
-                            },
-                            child: CircleAvatar(
-                              radius: 25.0,
-                              backgroundImage: AssetImage(currency[0].image),
-                            ),
-                          ),
-                          Text(
-                            currency[0].currency,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Container(
-                            height: 50,
-                            child: TextField(
-                              key: UniqueKey(),
-                              controller: inputData.textFieldController,
-                              onChanged: (value) =>
-                                  inputData.userInputCurrencyValue = value,
-                              onTap: () =>
-                                  inputData.textFieldController.clear(),
-                              onSubmitted: (String userInput) {
-                                final resultValue =
-                                    webservice.fetchCurrencyConversion(
-                                        '${currency[0].currency}_${currency[1].currency}');
-                                inputData.outputCurrencyValueRight(resultValue);
+            child: InkWell(
+              onLongPress: () {
+                log.i('CurrenciesComparisonCard - LongPressed');
+                inputData.removeCurrenciesComparisonCard();
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                elevation: 12.0,
+                color: Color(0xFF1B1B1B),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            InkWell(
+                              //TODO5 blur background when dialog show up
+                              onTap: () {
+                                print('onTap pressed');
+                                // var currenciesList = await loadCurrencies();
+                                // print(currenciesList.addedCurrencies.length);
+                                // return CurrencySelectionView();
+                                Navigator.of(context)
+                                    .pushNamed(CurrencySelectionView.id);
                               },
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              decoration: kAlertTextFieldDecoration,
+                              child: CircleAvatar(
+                                radius: 25.0,
+                                backgroundImage: AssetImage(currency[0].image),
+                              ),
                             ),
-                          ),
-                        ],
+                            Text(
+                              currency[0].currency,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 8.0,
+                            ),
+                            Container(
+                              height: 50,
+                              child: TextField(
+                                key: UniqueKey(),
+                                controller: inputData.textFieldController,
+                                onChanged: (value) =>
+                                    inputData.userInputCurrencyValue = value,
+                                onTap: () =>
+                                    inputData.textFieldController.clear(),
+                                onSubmitted: (String userInput) {
+                                  final resultValue =
+                                      webservice.fetchCurrencyConversion(
+                                          '${currency[0].currency}_${currency[1].currency}');
+                                  inputData
+                                      .outputCurrencyValueRight(resultValue);
+                                },
+                                textAlign: TextAlign.center,
+                                keyboardType: TextInputType.number,
+                                decoration: kAlertTextFieldDecoration,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            Icons.compare_arrows,
-                            size: 80,
-                            color: Color(0XFFAFAFAF),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              return showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return CurrencyAlertPopup();
-                                },
-                              );
-                            },
-                            icon: Icon(
-                              Icons.notifications,
-                              size: 40,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.compare_arrows,
+                              size: 80,
                               color: Color(0XFFAFAFAF),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          InkWell(
-                            //TODO5 blur background when dialog show up
-                            onTap: () async {
-                              // var currenciesList = await loadCurrencies();
-                              // print(currenciesList.addedCurrencies.length);
-                              myListView();
-                            },
-                            child: CircleAvatar(
-                              radius: 25.0,
-                              backgroundImage: AssetImage(currency[1].image),
+                            SizedBox(
+                              height: 10.0,
                             ),
-                          ),
-                          Text(
-                            currency[1].currency,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Container(
-                            height: 50,
-                            child: TextField(
-                              key: UniqueKey(),
-                              controller: inputData.textFieldController2,
-                              onChanged: (value) =>
-                                  inputData.userInputCurrencyValue = value,
-                              onTap: () =>
-                                  inputData.textFieldController2.clear(),
-                              onSubmitted: (String userInput) {
-                                final resultValue =
-                                    webservice.fetchCurrencyConversion(
-                                        '${currency[1].currency}_${currency[0].currency}');
-                                inputData.outputCurrencyValueLeft(resultValue);
+                            IconButton(
+                              onPressed: () {
+                                return showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return CurrencyAlertPopup();
+                                  },
+                                );
                               },
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              decoration: kAlertTextFieldDecoration,
+                              icon: Icon(
+                                Icons.notifications,
+                                size: 40,
+                                color: Color(0XFFAFAFAF),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            InkWell(
+                              //TODO5 blur background when dialog show up
+                              onTap: () async {
+                                // var currenciesList = await loadCurrencies();
+                                // print(currenciesList.addedCurrencies.length);
+                                myListView();
+                              },
+                              child: CircleAvatar(
+                                radius: 25.0,
+                                backgroundImage: AssetImage(currency[1].image),
+                              ),
+                            ),
+                            Text(
+                              currency[1].currency,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 8.0,
+                            ),
+                            Container(
+                              height: 50,
+                              child: TextField(
+                                key: UniqueKey(),
+                                controller: inputData.textFieldController2,
+                                onChanged: (value) =>
+                                    inputData.userInputCurrencyValue = value,
+                                onTap: () =>
+                                    inputData.textFieldController2.clear(),
+                                onSubmitted: (String userInput) {
+                                  final resultValue =
+                                      webservice.fetchCurrencyConversion(
+                                          '${currency[1].currency}_${currency[0].currency}');
+                                  inputData
+                                      .outputCurrencyValueLeft(resultValue);
+                                },
+                                textAlign: TextAlign.center,
+                                keyboardType: TextInputType.number,
+                                decoration: kAlertTextFieldDecoration,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           )
