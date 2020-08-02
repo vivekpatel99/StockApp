@@ -61,3 +61,8 @@ Widget kProgressIndicator = Center(
     valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFBB86FC)),
   ),
 );
+
+//------------------------------------------------------------------------------
+RoundedRectangleBorder kCardShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(20),
+);

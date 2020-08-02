@@ -1,4 +1,4 @@
-import 'package:StockApp/models/currency_selection_args_mode.dart';
+import 'package:StockApp/models/currency_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/services/currencyservice.dart';
 import 'package:flutter/material.dart';
@@ -16,18 +16,15 @@ class CurrencySelectionViewPage extends StatefulWidget {
 class _CurrencySelectionViewState extends State<CurrencySelectionViewPage> {
   @override
   Widget build(BuildContext context) {
-    final CurrencySelectionPageArgs args =
-        ModalRoute.of(context).settings.arguments;
     return Material(
       child: SafeArea(
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(10.0),
               child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                margin: EdgeInsets.all(10),
+                shape: kCardShape,
                 elevation: 12.0,
                 child: FutureBuilder(
                   future: Currency().loadInitCurrencies(),
@@ -38,14 +35,8 @@ class _CurrencySelectionViewState extends State<CurrencySelectionViewPage> {
                       return Container();
                     } else if (listViewSnap.connectionState ==
                         ConnectionState.done) {
-                      return ListView.builder(
-                        itemCount: listViewSnap.data[2].length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            title: Text(listViewSnap.data[2][index].name),
-                          );
-                        },
-                      );
+                      return CurrencyListView(
+                          currenyData: listViewSnap.data[2]);
                     } else
                       return kProgressIndicator;
                   },
@@ -55,6 +46,36 @@ class _CurrencySelectionViewState extends State<CurrencySelectionViewPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CurrencyListView extends StatelessWidget {
+  const CurrencyListView({Key key, @required this.currenyData})
+      : super(key: key);
+  final List<CurrencyType> currenyData;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: false,
+      padding: EdgeInsets.only(left: 10, right: 10, top: 18, bottom: 18),
+      itemCount: currenyData.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
+          shape: kCardShape,
+          elevation: 10.0,
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 18.0,
+              backgroundImage: AssetImage(currenyData[index].image),
+            ),
+            title: Text(currenyData[index].currency),
+            subtitle: Text(currenyData[index].name),
+            onTap: () {},
+          ),
+        );
+      },
     );
   }
 }

@@ -66,6 +66,47 @@
       "name": "Japanese Yen",
       "currency": "JPY",
       "image": "assets/images/jpy.png"
+    },
+
+    {
+      "name": "US Dollar",
+      "currency": "USD",
+      "image": "assets/images/usd.png"
+    },
+    {
+      "name": "Canadian Dollar",
+      "currency": "CAD",
+      "image": "assets/images/cad.png"
+    },
+    {
+      "name": "Thai Baht",
+      "currency": "THB",
+      "image": "assets/images/thb.png"
+    },
+    {
+      "name": "Hong Kong Dollar",
+      "currency": "HKD",
+      "image": "assets/images/hkd.png"
+    },
+    {
+      "name": "Australian Dollar",
+      "currency": "AUD",
+      "image": "assets/images/aud.png"
+    },
+    {
+      "name": "New Zealand Dollar",
+      "currency": "NZD",
+      "image": "assets/images/nzd.png"
+    },
+    {
+      "name": "Chinese Yuan Renminbi",
+      "currency": "CNY",
+      "image": "assets/images/cny.png"
+    },
+    {
+      "name": "Japanese Yen",
+      "currency": "JPY",
+      "image": "assets/images/jpy.png"
     }
   ]
 }
