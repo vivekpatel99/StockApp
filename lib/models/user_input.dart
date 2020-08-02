@@ -1,5 +1,5 @@
+import 'package:StockApp/models/home_pg_args.dart';
 import 'package:StockApp/others/mylog_printer.dart';
-import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/services/webservice.dart';
 import 'package:StockApp/widgets/currencies_comparison_card.dart';
 import 'package:flutter/material.dart';

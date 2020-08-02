@@ -1,9 +1,9 @@
 import 'package:StockApp/models/user_input.dart';
 import 'package:StockApp/others/mylog_printer.dart';
+import 'package:StockApp/pages/CurrencySelectionViewPage.dart';
 import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/pages/loading_pg.dart';
 import 'package:StockApp/services/currencyservice.dart';
-import 'package:StockApp/widgets/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +34,8 @@ class StockApp extends StatelessWidget {
         routes: {
           LoadingScreen.id: (context) => LoadingScreen(),
           HomePage.id: (context) => HomePage(),
-          CurrencySelectionView.id: (context) => CurrencySelectionView(),
+          CurrencySelectionViewPage.id: (context) =>
+              CurrencySelectionViewPage(),
         },
         theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,

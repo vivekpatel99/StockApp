@@ -56,3 +56,8 @@ InputDecoration kAlertTextFieldDecoration = InputDecoration(
   ),
 );
 //------------------------------------------------------------------------------
+Widget kProgressIndicator = Center(
+  child: CircularProgressIndicator(
+    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFBB86FC)),
+  ),
+);

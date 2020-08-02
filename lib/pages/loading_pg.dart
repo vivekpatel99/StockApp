@@ -1,12 +1,16 @@
+import 'package:StockApp/globals.dart';
+import 'package:StockApp/models/home_pg_args.dart';
+import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/services/currencyservice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoadingScreen extends StatefulWidget {
-  LoadingScreen({Key key}) : super(key: key);
-  static const String id = 'loading_screen';
+final log = getLogger('LoadingScreen');
 
+class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({Key key}) : super(key: key);
+  static const String id = 'loading_screen';
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -15,25 +19,40 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    getLoadCurrencies();
+    getLoadCurrenciesHomePg();
   }
 
-  void getLoadCurrencies() async {
+  void getLoadCurrenciesHomePg() async {
+    log.i('getLoadCurrenciesHomePg');
     final currencyList = await Currency().loadInitCurrencies();
-    Navigator.pushNamed(context, HomePage.id,
-        arguments: HomePageArgs(
-            addedcurrencyList: currencyList[0],
-            dfltcurrencyList: currencyList[1]));
+    Navigator.pushNamed(
+      context,
+      HomePage.id,
+      arguments: HomePageArgs(
+          addedcurrencyList: currencyList[0],
+          dfltcurrencyList: currencyList[1]),
+    );
   }
+
+  // void getLoadCurrenciesCurrencySelectionViewPg() async {
+  //   log.i('getLoadCurrenciesCurrencySelectionViewPg');
+  //   final currencyList = await Currency().loadInitCurrencies();
+  //   Navigator.pushNamed(
+  //     context,
+  //     CurrencySelectionViewPage.id,
+  //     arguments: CurrencySelectionPageArgs(allCurrenyList: currencyList[2]),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFBB86FC)),
-        ),
-      ),
+      body: kProgressIndicator,
     );
   }
+}
+
+class LoadingPageArguments {
+  final String pageId;
+  LoadingPageArguments({this.pageId});
 }

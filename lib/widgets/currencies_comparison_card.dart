@@ -2,9 +2,9 @@ import 'package:StockApp/globals.dart';
 import 'package:StockApp/models/currency_model.dart';
 import 'package:StockApp/models/user_input.dart';
 import 'package:StockApp/others/mylog_printer.dart';
+import 'package:StockApp/pages/CurrencySelectionViewPage.dart';
 import 'package:StockApp/services/webservice.dart';
 import 'package:StockApp/widgets/currency_alert_popup.dart';
-import 'package:StockApp/widgets/currency_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,11 +51,9 @@ class CurrenciesComparisonCard extends StatelessWidget {
                               //TODO5 blur background when dialog show up
                               onTap: () {
                                 print('onTap pressed');
-                                // var currenciesList = await loadCurrencies();
-                                // print(currenciesList.addedCurrencies.length);
-                                // return CurrencySelectionView();
-                                Navigator.of(context)
-                                    .pushNamed(CurrencySelectionView.id);
+                                Navigator.of(context).pushNamed(
+                                  CurrencySelectionViewPage.id,
+                                );
                               },
                               child: CircleAvatar(
                                 radius: 25.0,
@@ -134,10 +132,9 @@ class CurrenciesComparisonCard extends StatelessWidget {
                           children: <Widget>[
                             InkWell(
                               //TODO5 blur background when dialog show up
-                              onTap: () async {
-                                // var currenciesList = await loadCurrencies();
-                                // print(currenciesList.addedCurrencies.length);
-                                myListView();
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed(CurrencySelectionViewPage.id);
                               },
                               child: CircleAvatar(
                                 radius: 25.0,
@@ -161,7 +158,7 @@ class CurrenciesComparisonCard extends StatelessWidget {
                                 onTap: () =>
                                     inputData.textFieldController2.clear(),
                                 onSubmitted: (String userInput) {
-                                  final resultValue =
+                                  Future<double> resultValue =
                                       webservice.fetchCurrencyConversion(
                                           '${currency[1].currency}_${currency[0].currency}');
                                   inputData

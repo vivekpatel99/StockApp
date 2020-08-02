@@ -43,7 +43,11 @@ class Currency extends ChangeNotifier {
 
     // log.i('${currency.defaultCurrencies[0].name}');
     log.i('${_currency.addedCurrencies}');
-    return [_currency.addedCurrencies, _currency.defaultCurrencies];
+    return [
+      _currency.addedCurrencies,
+      _currency.defaultCurrencies,
+      _currency.allCurrencies
+    ];
   }
 
 //------------------------------------------------------------
