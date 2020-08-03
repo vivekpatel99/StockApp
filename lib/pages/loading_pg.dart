@@ -34,16 +34,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     );
   }
 
-  // void getLoadCurrenciesCurrencySelectionViewPg() async {
-  //   log.i('getLoadCurrenciesCurrencySelectionViewPg');
-  //   final currencyList = await Currency().loadInitCurrencies();
-  //   Navigator.pushNamed(
-  //     context,
-  //     CurrencySelectionViewPage.id,
-  //     arguments: CurrencySelectionPageArgs(allCurrenyList: currencyList[2]),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -30,9 +30,9 @@ class CurrencyModel {
 
 //------------------------------------------------------------------------------
 class CurrencyType {
-  final String name;
-  final String currency;
-  final String image;
+  String name;
+  String currency;
+  String image;
 
   CurrencyType({this.name, this.currency, this.image});
 
