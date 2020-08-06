@@ -1,4 +1,4 @@
-import 'package:StockApp/models/user_input.dart';
+import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/pages/CurrencySelectionViewPage.dart';
 import 'package:StockApp/pages/home_pg.dart';

@@ -43,3 +43,30 @@ class CurrencyType {
         image: parsedJson['image']);
   }
 }
+
+//------------------------------------------------------------------------------
+class CurrencyTypeCard {
+  String nameLeft;
+  String currencyLeft;
+  String imageLeft;
+  String nameRight;
+  String currencyRight;
+  String imageRight;
+  CurrencyTypeCard(
+      {this.nameLeft,
+      this.currencyLeft,
+      this.imageLeft,
+      this.nameRight,
+      this.currencyRight,
+      this.imageRight});
+
+  factory CurrencyTypeCard.fromJson(Map<String, dynamic> parsedJson) {
+    return CurrencyTypeCard(
+        nameLeft: parsedJson['name_left'],
+        currencyLeft: parsedJson['currency_left'],
+        imageLeft: parsedJson['image_left'],
+        nameRight: parsedJson['name_right'],
+        currencyRight: parsedJson['currency_right'],
+        imageRight: parsedJson['image_right']);
+  }
+}

@@ -1,5 +1,5 @@
-import 'package:StockApp/models/home_pg_args.dart';
-import 'package:StockApp/models/user_input.dart';
+import 'package:StockApp/models/home_pg_args_model.dart';
+import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/widgets/category_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,5 @@
 import 'package:StockApp/globals.dart';
-import 'package:StockApp/models/home_pg_args.dart';
+import 'package:StockApp/models/home_pg_args_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/services/currencyservice.dart';
