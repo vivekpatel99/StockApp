@@ -57,7 +57,6 @@ class CurrencyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CurrencyType inputCurrenyData;
     return ListView.builder(
       shrinkWrap: false,
       padding: EdgeInsets.only(left: 10, right: 10, top: 18, bottom: 18),
@@ -78,8 +77,9 @@ class CurrencyListView extends StatelessWidget {
               // inputCurrenyData.image = currenyData[index].image;
               // inputCurrenyData.currency = currenyData[index].currency;
               // inputCurrenyData.name = currenyData[index].name;
-
-              // print(inputCurrenyData);
+              // Provider.of<DatabaseService>(context)
+              //     .saveCurrency(currency: currenyData, cardIndex: 1);
+              print(currenyData[index].currency);
             },
           ),
         );

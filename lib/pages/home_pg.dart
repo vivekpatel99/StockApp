@@ -48,6 +48,8 @@ class _HomePageState extends State<HomePage>
               child: ListView.builder(
                   itemCount: inputData.comparisionCardList.length,
                   itemBuilder: (context, index) {
+                    print('textEditingControllerCounter $index');
+
                     return inputData.updateComparisionCardList(index);
                   }),
             ),

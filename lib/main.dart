@@ -4,6 +4,7 @@ import 'package:StockApp/pages/CurrencySelectionViewPage.dart';
 import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/pages/loading_pg.dart';
 import 'package:StockApp/services/currencyservice.dart';
+import 'package:StockApp/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,8 @@ class StockApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<UserInput>(create: (context) => UserInput()),
         ChangeNotifierProvider<Currency>(create: (context) => Currency()),
+        ChangeNotifierProvider<DatabaseService>(
+            create: (context) => DatabaseService()),
       ],
       child: MaterialApp(
         initialRoute: LoadingScreen.id,

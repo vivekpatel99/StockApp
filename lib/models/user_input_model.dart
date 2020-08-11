@@ -14,16 +14,14 @@ class UserInput extends ChangeNotifier {
 
   WebService currencyConv = WebService();
   List<CurrenciesComparisonCard> comparisionCardList = [];
+
   int listIndex = 0;
-  TextEditingController textFieldController = TextEditingController();
-  TextEditingController textFieldController2 = TextEditingController();
+  int textFieldControllerIndex;
 
 //------------------------------------------------------------------------------
   set userInputCurrencyValue(String userInput) {
     log.i('currencyInput = $userInput');
     _currencyInput = double.parse(userInput);
-
-    // return currencyInput.toStringAsFixed(2);
   }
 
 //------------------------------------------------------------------------------
@@ -36,30 +34,26 @@ class UserInput extends ChangeNotifier {
     return comparisionCardList[index];
   }
 
-//------------------------------------------------------------------------------
-  void outputCurrencyValueLeft(Future<double> _currencyValueDifference) async {
+  void outputCurrencyValue(
+      {TextEditingController textEditingController,
+      Future<double> currencyValueDifference}) async {
     if (_currencyInput != null) {
-      _currencyOutput = _currencyInput * await _currencyValueDifference;
-      log.i('$_currencyInput and $_currencyValueDifference');
-      textFieldController.text = _currencyOutput.toStringAsFixed(2);
+      _currencyOutput = _currencyInput * await currencyValueDifference;
+      log.i(
+          '$_currencyInput and $currencyValueDifference $textFieldControllerIndex');
+      textEditingController.text = _currencyOutput.toStringAsFixed(2);
     }
   }
 
 //------------------------------------------------------------------------------
-  void outputCurrencyValueRight(Future<double> _currencyValueDifference) async {
-    if (_currencyInput != null) {
-      _currencyOutput = _currencyInput * await _currencyValueDifference;
-      log.i('$_currencyInput and $_currencyValueDifference');
-      textFieldController2.text = _currencyOutput.toStringAsFixed(2);
-    }
-  }
-
-//------------------------------------------------------------------------------
-  void addCurrenciesComparisonCard({HomePageArgs args}) {
+  void addCurrenciesComparisonCard({Key key, HomePageArgs args}) {
     log.i('addCurrenciesComparisonCard');
     comparisionCardList.add(
-      CurrenciesComparisonCard(currency: args.dfltcurrencyList),
+      CurrenciesComparisonCard(
+          key: ValueKey(comparisionCardList.length),
+          currency: args.dfltcurrencyList),
     );
+
     log.i('addCurrenciesComparisonCard - $comparisionCardList');
     notifyListeners();
   }
@@ -71,16 +65,3 @@ class UserInput extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-// import 'package:flutter/cupertino.dart';
-
-// class Currency {
-//   double conversion({
-//     @required double sourceCurrency,
-//     @required double destCurrencyDiff,
-//   }) {
-//     print(
-//         'sourceCurrency= $sourceCurrency and destCurrencyDiff $destCurrencyDiff');
-//     return sourceCurrency * destCurrencyDiff;
-//   }
-// }

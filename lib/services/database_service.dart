@@ -21,8 +21,13 @@ class DatabaseService extends ChangeNotifier {
     return currency;
   }
 
-  void saveCurrency(CurrencyTypeCard currency, int cardIndex) async {
+  void saveCurrency({CurrencyTypeCard currency, int cardIndex}) async {
     await storage.ready;
     storage.setItem('$cardIndex', currency);
+  }
+
+  void deleteCurrency(int cardIndex) async {
+    await storage.ready;
+    storage.deleteItem('$cardIndex');
   }
 }

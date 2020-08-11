@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 // https://www.iban.com/exchange-rates
 class CurrencyModel {
-  final List<CurrencyType> defaultCurrencies;
+  final List<CurrencyTypeCard> defaultCurrencies;
   final List<CurrencyType> addedCurrencies;
   final List<CurrencyType> allCurrencies;
 
@@ -14,8 +14,8 @@ class CurrencyModel {
     var addedList = parsedJson['added'] as List;
     var allList = parsedJson['all'] as List;
 
-    List<CurrencyType> dfltCurrenyList =
-        dfltList.map((e) => CurrencyType.fromJson(e)).toList();
+    List<CurrencyTypeCard> dfltCurrenyList =
+        dfltList.map((e) => CurrencyTypeCard.fromJson(e)).toList();
     List<CurrencyType> addedCurrenyList =
         addedList.map((e) => CurrencyType.fromJson(e)).toList();
     List<CurrencyType> allCurrenyList =

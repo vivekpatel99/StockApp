@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class HomePageArgs {
   final List<CurrencyType> addedcurrencyList;
-  final List<CurrencyType> dfltcurrencyList;
+  final List<CurrencyTypeCard> dfltcurrencyList;
 
   HomePageArgs(
       {@required this.addedcurrencyList, @required this.dfltcurrencyList});

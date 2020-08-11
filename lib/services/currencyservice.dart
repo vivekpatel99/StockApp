@@ -13,7 +13,7 @@ class Currency extends ChangeNotifier {
   // Currency._();
 
   CurrencyModel currency;
-  List<List<CurrencyType>> displayCurrenciesList = [];
+  List<List<CurrencyTypeCard>> displayCurrenciesList = [];
 
 //------------------------------------------------------------
 
@@ -36,7 +36,7 @@ class Currency extends ChangeNotifier {
   }
 
 //------------------------------------------------------------
-  Future<List<List<CurrencyType>>> loadInitCurrencies() async {
+  Future<List<List<dynamic>>> loadInitCurrencies() async {
     log.i('loadInitCurrencies');
 
     CurrencyModel _currency = await loadCurrencies();
@@ -51,13 +51,13 @@ class Currency extends ChangeNotifier {
   }
 
 //------------------------------------------------------------
-  void displayCurrencyTile() async {
-    final currency = await loadCurrencies();
-    if (currency.addedCurrencies.isNotEmpty) {
-      displayCurrenciesList.add(currency.addedCurrencies);
-    }
-    log.i(displayCurrenciesList);
-  }
+  // void displayCurrencyTile() async {
+  //   final currency = await loadCurrencies();
+  //   if (currency.addedCurrencies.isNotEmpty) {
+  //     displayCurrenciesList.add(currency.addedCurrencies);
+  //   }
+  //   log.i(displayCurrenciesList);
+  // }
 
 //------------------------------------------------------------
   void newCurrenyTileAdd() async {

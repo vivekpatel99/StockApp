@@ -1,14 +1,12 @@
 {
   "default": [
     {
-      "name": "Euro",
-      "currency": "EUR",
-      "image": "assets/images/eur.png"
-    },
-    {
-      "name": "Indian Rupee",
-      "currency": "INR",
-      "image": "assets/images/inr.png"
+      "name_left": "Euro",
+      "currency_left": "EUR",
+      "image_left": "assets/images/eur.png",
+      "name_right": "Indian Rupee",
+      "currency_right": "INR",
+      "image_right": "assets/images/inr.png"
     }
   ],
 

@@ -12,15 +12,17 @@ final log = getLogger('CurrenciesComparisonCard');
 
 //==============================================================================
 class CurrenciesComparisonCard extends StatelessWidget {
-  final List<CurrencyType> currency;
-
+  final List<CurrencyTypeCard> currency;
   CurrenciesComparisonCard({
     this.currency,
     Key key,
   }) : super(key: key);
 
   final WebService webservice = WebService();
-
+  final TextEditingController textEditingControllerLeft =
+      TextEditingController();
+  final TextEditingController textEditingControllerRight =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Consumer<UserInput>(builder: (context, inputData, child) {
@@ -57,11 +59,12 @@ class CurrenciesComparisonCard extends StatelessWidget {
                               },
                               child: CircleAvatar(
                                 radius: 25.0,
-                                backgroundImage: AssetImage(currency[0].image),
+                                backgroundImage:
+                                    AssetImage(currency[0].imageLeft),
                               ),
                             ),
                             Text(
-                              currency[0].currency,
+                              currency[0].currencyLeft,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -70,18 +73,19 @@ class CurrenciesComparisonCard extends StatelessWidget {
                             Container(
                               height: 50,
                               child: TextField(
-                                key: UniqueKey(),
-                                controller: inputData.textFieldController,
+                                key: key,
+                                controller: textEditingControllerLeft,
                                 onChanged: (value) =>
                                     inputData.userInputCurrencyValue = value,
-                                onTap: () =>
-                                    inputData.textFieldController.clear(),
+                                onTap: () => textEditingControllerLeft.clear(),
                                 onSubmitted: (String userInput) {
                                   final resultValue =
                                       webservice.fetchCurrencyConversion(
-                                          '${currency[0].currency}_${currency[1].currency}');
-                                  inputData
-                                      .outputCurrencyValueRight(resultValue);
+                                          '${currency[0].currencyLeft}_${currency[0].currencyRight}');
+                                  inputData.outputCurrencyValue(
+                                      textEditingController:
+                                          textEditingControllerRight,
+                                      currencyValueDifference: resultValue);
                                 },
                                 textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
@@ -138,11 +142,12 @@ class CurrenciesComparisonCard extends StatelessWidget {
                               },
                               child: CircleAvatar(
                                 radius: 25.0,
-                                backgroundImage: AssetImage(currency[1].image),
+                                backgroundImage:
+                                    AssetImage(currency[0].imageRight),
                               ),
                             ),
                             Text(
-                              currency[1].currency,
+                              currency[0].currencyRight,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -151,18 +156,19 @@ class CurrenciesComparisonCard extends StatelessWidget {
                             Container(
                               height: 50,
                               child: TextField(
-                                key: UniqueKey(),
-                                controller: inputData.textFieldController2,
+                                key: key,
+                                controller: textEditingControllerRight,
                                 onChanged: (value) =>
                                     inputData.userInputCurrencyValue = value,
-                                onTap: () =>
-                                    inputData.textFieldController2.clear(),
+                                onTap: () => textEditingControllerRight.clear(),
                                 onSubmitted: (String userInput) {
                                   Future<double> resultValue =
                                       webservice.fetchCurrencyConversion(
-                                          '${currency[1].currency}_${currency[0].currency}');
-                                  inputData
-                                      .outputCurrencyValueLeft(resultValue);
+                                          '${currency[0].currencyRight}_${currency[0].currencyLeft}');
+                                  inputData.outputCurrencyValue(
+                                      textEditingController:
+                                          textEditingControllerLeft,
+                                      currencyValueDifference: resultValue);
                                 },
                                 textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
