@@ -46,22 +46,18 @@ class _HomePageState extends State<HomePage>
             CategorySelector(),
             Expanded(
               child: ListView.builder(
-                  itemCount: inputData.comparisionCardList.length,
-                  itemBuilder: (context, index) {
-                    print('textEditingControllerCounter $index');
-
-                    return inputData.updateComparisionCardList(index);
-                  }),
+                itemCount: inputData.comparisionCardList.length,
+                itemBuilder: inputData.getListItemCard,
+              ),
             ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             log.i('floatingActionButton pressed');
+            inputData.addCurrenciesComparisonCard(args: args);
             setState(
-              () {
-                inputData.addCurrenciesComparisonCard(args: args);
-              },
+              () {},
             );
           },
           backgroundColor: Color(0xFFBB86FC),

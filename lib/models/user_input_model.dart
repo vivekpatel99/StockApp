@@ -16,6 +16,7 @@ class UserInput extends ChangeNotifier {
   List<CurrenciesComparisonCard> comparisionCardList = [];
 
   int listIndex = 0;
+  int currentListIndex;
   int textFieldControllerIndex;
 
 //------------------------------------------------------------------------------
@@ -28,40 +29,38 @@ class UserInput extends ChangeNotifier {
   get getComparisionCardListLength => comparisionCardList.length;
 
 //------------------------------------------------------------------------------
-  CurrenciesComparisonCard updateComparisionCardList(int index) {
-    log.i('updateComparisionCardList - $index');
+  Widget getListItemCard(BuildContext contex, int index) {
     listIndex = index;
-    return comparisionCardList[index];
+    return InkWell(
+        onLongPress: () {
+          log.i('CurrenciesComparisonCard - LongPressed');
+          comparisionCardList.remove(comparisionCardList[index]);
+          notifyListeners();
+        },
+        child: comparisionCardList[index]);
   }
 
+//------------------------------------------------------------------------------
   void outputCurrencyValue(
-      {TextEditingController textEditingController,
-      Future<double> currencyValueDifference}) async {
+      {TextEditingController txtEditController,
+      Future<double> currencyValDiff}) async {
     if (_currencyInput != null) {
-      _currencyOutput = _currencyInput * await currencyValueDifference;
-      log.i(
-          '$_currencyInput and $currencyValueDifference $textFieldControllerIndex');
-      textEditingController.text = _currencyOutput.toStringAsFixed(2);
+      _currencyOutput = _currencyInput * await currencyValDiff;
+      log.i('$_currencyInput and $currencyValDiff $textFieldControllerIndex');
+      txtEditController.text = _currencyOutput.toStringAsFixed(2);
     }
   }
 
 //------------------------------------------------------------------------------
-  void addCurrenciesComparisonCard({Key key, HomePageArgs args}) {
+  void addCurrenciesComparisonCard({HomePageArgs args}) {
     log.i('addCurrenciesComparisonCard');
     comparisionCardList.add(
       CurrenciesComparisonCard(
-          key: ValueKey(comparisionCardList.length),
-          currency: args.dfltcurrencyList),
+        key: ValueKey(comparisionCardList.length),
+        currency: args.dfltcurrencyList,
+      ),
     );
-
     log.i('addCurrenciesComparisonCard - $comparisionCardList');
-    notifyListeners();
-  }
-
-//------------------------------------------------------------------------------
-  void removeCurrenciesComparisonCard() {
-    log.i('removeCurrenciesComparisonCard - $listIndex');
-    comparisionCardList.removeAt(listIndex);
     notifyListeners();
   }
 }
