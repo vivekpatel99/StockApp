@@ -1,10 +1,12 @@
 import 'package:StockApp/globals.dart';
 import 'package:StockApp/models/home_pg_args_model.dart';
+import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/pages/home_pg.dart';
-import 'package:StockApp/services/currencyservice.dart';
+import 'package:StockApp/services/currency_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 final log = getLogger('LoadingScreen');
 
@@ -24,6 +26,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void getLoadCurrenciesHomePg() async {
     log.i('getLoadCurrenciesHomePg');
+    Provider.of<UserInput>(context, listen: false).loadDataFromDatabase();
     final currencyList = await Currency().loadInitCurrencies();
     Navigator.pushNamed(
       context,

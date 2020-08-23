@@ -1,5 +1,6 @@
-//------------------------------------------------------------------------------
+//==============================================================================
 // https://www.iban.com/exchange-rates
+
 class CurrencyModel {
   final List<CurrencyTypeCard> defaultCurrencies;
   final List<CurrencyType> addedCurrencies;
@@ -28,7 +29,7 @@ class CurrencyModel {
   }
 }
 
-//------------------------------------------------------------------------------
+//==============================================================================
 class CurrencyType {
   String name;
   String currency;
@@ -44,7 +45,7 @@ class CurrencyType {
   }
 }
 
-//------------------------------------------------------------------------------
+//==============================================================================
 class CurrencyTypeCard {
   String nameLeft;
   String currencyLeft;
@@ -69,4 +70,21 @@ class CurrencyTypeCard {
         currencyRight: parsedJson['currency_right'],
         imageRight: parsedJson['image_right']);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name_left': nameLeft,
+      'currency_left': currencyLeft,
+      'image_left': imageLeft,
+      'name_right': nameRight,
+      'currency_right': currencyRight,
+      'image_right': imageRight,
+    };
+  }
+}
+
+//==============================================================================
+class CurrencySelectSide {
+  final bool side; // is true = right, false = left
+  CurrencySelectSide({this.side});
 }

@@ -1,22 +1,29 @@
+import 'package:StockApp/models/currency_watchlist_card_model.dart';
 import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
 import 'package:StockApp/pages/CurrencySelectionViewPage.dart';
 import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/pages/loading_pg.dart';
-import 'package:StockApp/services/currencyservice.dart';
+import 'package:StockApp/services/currency_service.dart';
 import 'package:StockApp/services/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
-
-//TODO1 add functionality to add more currency conversion tile by pressing floating button
-//TODO1.1 long pressed remove currency conversion tile
-//TODO2 add WebServices into money conversion
 //TODO3 add Alert functionality
 //TODO4  merge and push
+
 //https://github.com/londonappbrewery/Flash-Chat-Flutter-Complete/blob/master/lib/main.dart
-void main() {
+void main() async {
   Logger.level = Level.info;
+
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+
+  Hive.init(appDocumentDir.path);
+  Hive.registerAdapter(CurrencyWatchlistCardAdapter());
+  await Hive.openBox<CurrencyWatchlistCard>(DatabaseService.watchlistcurrency);
   runApp(StockApp());
 }
 

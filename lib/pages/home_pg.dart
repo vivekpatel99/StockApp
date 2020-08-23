@@ -1,13 +1,16 @@
 import 'package:StockApp/models/home_pg_args_model.dart';
 import 'package:StockApp/models/user_input_model.dart';
+import 'package:StockApp/services/database_service.dart';
 import 'package:StockApp/widgets/category_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../others/mylog_printer.dart';
 
 final log = getLogger('HomePage');
 
+//==============================================================================
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';
 
@@ -15,10 +18,12 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+//==============================================================================
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    Provider.of<DatabaseService>(context).openHiveBox();
     final HomePageArgs args = ModalRoute.of(context).settings.arguments;
     return Consumer<UserInput>(builder: (context, inputData, child) {
       return Scaffold(
@@ -45,10 +50,7 @@ class _HomePageState extends State<HomePage>
           children: <Widget>[
             CategorySelector(),
             Expanded(
-              child: ListView.builder(
-                itemCount: inputData.comparisionCardList.length,
-                itemBuilder: inputData.getListItemCard,
-              ),
+              child: inputData.buildValueListenableBuilder(),
             ),
           ],
         ),
@@ -60,10 +62,17 @@ class _HomePageState extends State<HomePage>
               () {},
             );
           },
-          backgroundColor: Color(0xFFBB86FC),
-          child: Icon(Icons.add),
+          backgroundColor: const Color(0xFFBB86FC),
+          child: const Icon(Icons.add),
         ),
       );
     });
+  }
+
+//------------------------------------------------------------------------------
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
   }
 }
