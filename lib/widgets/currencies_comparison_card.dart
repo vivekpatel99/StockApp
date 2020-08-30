@@ -1,11 +1,10 @@
 import 'package:StockApp/globals.dart';
-import 'package:StockApp/models/currency_model.dart';
 import 'package:StockApp/models/currency_watchlist_card_model.dart';
 import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
-import 'package:StockApp/pages/CurrencySelectionViewPage.dart';
 import 'package:StockApp/services/webservice.dart';
 import 'package:StockApp/widgets/currency_alert_popup.dart';
+import 'package:StockApp/widgets/currency_selection_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -64,12 +63,9 @@ class _CurrenciesComparisonCardState extends State<CurrenciesComparisonCard> {
                               //TODO5 blur background when dialog show up
                               onTap: () {
                                 print('onTap pressed');
-                                Navigator.of(context).pushNamed(
-                                  CurrencySelectionViewPage.id,
-                                  arguments: CurrencySelectSide(
-                                      side:
-                                          CurrenciesComparisonCard.kRightSide),
-                                );
+                                currencySelectionDialog(
+                                    context: context,
+                                    side: CurrenciesComparisonCard.kRightSide);
                               },
                               child: CircleAvatar(
                                 radius: 25.0,
@@ -150,11 +146,9 @@ class _CurrenciesComparisonCardState extends State<CurrenciesComparisonCard> {
                             InkWell(
                               //TODO5 blur background when dialog show up
                               onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  CurrencySelectionViewPage.id,
-                                  arguments: CurrencySelectSide(
-                                      side: CurrenciesComparisonCard.kLeftSide),
-                                );
+                                currencySelectionDialog(
+                                    context: context,
+                                    side: CurrenciesComparisonCard.kLeftSide);
                               },
                               child: CircleAvatar(
                                 radius: 25.0,

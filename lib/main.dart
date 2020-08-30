@@ -1,7 +1,6 @@
 import 'package:StockApp/models/currency_watchlist_card_model.dart';
 import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
-import 'package:StockApp/pages/CurrencySelectionViewPage.dart';
 import 'package:StockApp/pages/home_pg.dart';
 import 'package:StockApp/pages/loading_pg.dart';
 import 'package:StockApp/services/currency_service.dart';
@@ -44,8 +43,6 @@ class StockApp extends StatelessWidget {
         routes: {
           LoadingScreen.id: (context) => LoadingScreen(),
           HomePage.id: (context) => HomePage(),
-          CurrencySelectionViewPage.id: (context) =>
-              CurrencySelectionViewPage(),
         },
         theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,

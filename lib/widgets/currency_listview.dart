@@ -1,6 +1,8 @@
 import 'package:StockApp/globals.dart';
 import 'package:StockApp/models/currency_model.dart';
+import 'package:StockApp/models/user_input_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CurrencyListView extends StatelessWidget {
   const CurrencyListView(
@@ -26,16 +28,18 @@ class CurrencyListView extends StatelessWidget {
             title: Text(currenyData[index].currency),
             subtitle: Text(currenyData[index].name),
             onTap: () {
-              //TODO0 https
-              //pub.dev/packages/localstorage/example
-              // inputCurrenyData.image = currenyData[index].image;
-              // inputCurrenyData.currency = currenyData[index].currency;
-              // inputCurrenyData.name = currenyData[index].name;
-              // Provider.of<DatabaseService>(context)
-              //     .saveCurrency(currency: currenyData, cardIndex: 1);
+              final _index =
+                  Provider.of<UserInput>(context, listen: false).getCardIndex;
+
               if (side == true) {
+                print('Left side clicked $_index');
+
+                print(currenyData[index].currency);
+                return;
               } else {}
+              print('Right side clicked $index');
               print(currenyData[index].currency);
+              return;
             },
           ),
         );

@@ -39,7 +39,7 @@ class UserInput extends ChangeNotifier {
   }
 
 //------------------------------------------------------------------------------
-  // get getComparisionCardListLength => comparisionCardList.length;
+  get getCardIndex => listIndex;
 
 // //------------------------------------------------------------------------------
 // ListView _builderListView(){
@@ -114,12 +114,6 @@ class UserInput extends ChangeNotifier {
 //------------------------------------------------------------------------------
   void addCurrenciesComparisonCard({HomePageArgs args}) {
     log.i('addCurrenciesComparisonCard');
-    // comparisionCardList.add(
-    //   CurrenciesComparisonCard(
-    //     key: ValueKey(comparisionCardList.length),
-    //     currency: args.dfltcurrencyList,
-    //   ),
-    // );
 
     CurrencyWatchlistCard currencyCard = CurrencyWatchlistCard(
       nameLeft: args.dfltcurrencyList[0].nameLeft,
@@ -132,12 +126,7 @@ class UserInput extends ChangeNotifier {
 
     newCurrencyBox.add(currencyCard);
     log.i('Currency saved');
-    // Provider.of<DatabaseService>(context, listen: false)
-    //     .saveCurrency(currency: args.dfltcurrencyList[0], cardIndex: listIndex);
     log.i('addCurrenciesComparisonCard end');
     notifyListeners();
-
-    // var curr = Provider.of<DatabaseService>(context, listen: false)
-    //     .getCurrency(listIndex);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:StockApp/models/home_pg_args_model.dart';
 import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/services/database_service.dart';
-import 'package:StockApp/widgets/category_selector.dart';
+import 'package:StockApp/widgets/category_selector_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
