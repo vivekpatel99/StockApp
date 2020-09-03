@@ -20,7 +20,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-
     getLoadCurrenciesHomePg();
   }
 
@@ -28,8 +27,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     log.i('getLoadCurrenciesHomePg');
     // await Future.delayed(Duration(seconds: 1), () => '1');
     Provider.of<UserInput>(context, listen: false).loadDataFromDatabase();
-    final currencyList = await Currency().loadInitCurrencies();
-    print(currencyList[1][0]);
+    final List<List<dynamic>> currencyList =
+        await Currency().loadInitCurrencies();
+
     Navigator.pushNamed(
       context,
       kHomePageRoute,
@@ -46,9 +46,4 @@ class _LoadingScreenState extends State<LoadingScreen> {
       body: kProgressIndicator,
     );
   }
-}
-
-class LoadingPageArguments {
-  final String pageId;
-  LoadingPageArguments({this.pageId});
 }

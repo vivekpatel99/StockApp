@@ -57,9 +57,6 @@ class _HomePageState extends State<HomePage>
             onPressed: () {
               log.i('floatingActionButton pressed');
               inputData.addCurrenciesComparisonCard(args: widget._args);
-              setState(
-                () {},
-              );
             },
             backgroundColor: const Color(0xFFBB86FC),
             child: const Icon(Icons.add),
