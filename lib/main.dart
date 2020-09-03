@@ -1,8 +1,7 @@
+import 'package:StockApp/globals.dart';
 import 'package:StockApp/models/currency_watchlist_card_model.dart';
 import 'package:StockApp/models/user_input_model.dart';
 import 'package:StockApp/others/mylog_printer.dart';
-import 'package:StockApp/pages/home_pg.dart';
-import 'package:StockApp/pages/loading_pg.dart';
 import 'package:StockApp/services/currency_service.dart';
 import 'package:StockApp/services/database_service.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,8 @@ import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
+
+import 'routes/router.dart' as router;
 //TODO3 add Alert functionality
 //TODO4  merge and push
 
@@ -39,11 +40,8 @@ class StockApp extends StatelessWidget {
             create: (context) => DatabaseService()),
       ],
       child: MaterialApp(
-        initialRoute: LoadingScreen.id,
-        routes: {
-          LoadingScreen.id: (context) => LoadingScreen(),
-          HomePage.id: (context) => HomePage(),
-        },
+        initialRoute: kLoadingPageRoute,
+        onGenerateRoute: router.generateRoute,
         theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
       ),

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// Route Constant---------------------------------------------------------------
+const String kLoadingPageRoute = '/';
+const String kHomePageRoute = '/homepage';
+
 //------------------------------------------------------------------------------
 const String kCurrenciesJsonPath = 'assets/currencies.json';
 
